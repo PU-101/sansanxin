@@ -39,9 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # My Apps
-    'apps.users',
     'apps.blog',
-    'apps.relationship',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -57,10 +55,13 @@ MIDDLEWARE_CLASSES = [
 
 ROOT_URLCONF = 'sansanxin.urls'
 
+TEMPLATES_PATH = os.path.join(BASE_DIR, 'templates')
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            TEMPLATES_PATH,
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
