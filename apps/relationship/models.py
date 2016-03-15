@@ -7,7 +7,6 @@ from apps.blog.models import Post
 class LikeAndStar(models.Model):
 	by = models.ForeignKey(User)
 	to = models.ForeignKey(Post)
-	created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
 
 	class Meta():
 		ordering = ['by']
