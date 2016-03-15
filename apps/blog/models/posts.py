@@ -1,8 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
+from . import MyPostManager
 
 
-# Create your models here.
+# 发布条目
 class Post(models.Model):
 	user = models.ForeignKey(User)
 	content = models.CharField(max_length=280, blank=True)
@@ -15,9 +16,13 @@ class Post(models.Model):
 	comments = models.PositiveIntegerField(default=0)
 
 	objects = models.Manager()
+	my_post_manager = MyPostManager()
 
 	def clean(self):
 		pass
+
+	class Meta():
+		ordering = ['-created_at']
 
 	def __str__(self):
 		return self.user.username+'--'+self.content

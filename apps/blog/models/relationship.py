@@ -6,7 +6,7 @@ from django.db.models.signals import post_save, post_delete
 from django.db.models import F
 
 
-# Create your models here.
+# Like&Star功能
 class LikeAndStar(models.Model):
 	by = models.ForeignKey(User)
 	to = models.ForeignKey(Post)
@@ -21,6 +21,7 @@ class Like(LikeAndStar):
 		return '{0}--LIKE--{1}'.format(self.by.username, self.to.content)
 
 
+# Follow功能
 class Follow(models.Model):
 	SITU_CHOICES = (
 		('0', 'follow'),
@@ -36,9 +37,10 @@ class Follow(models.Model):
 	def __str__(self):
 		return '{0}--FOLLOW--{1}'.format(self.user1.username, self.user2.username)
 
-# SIGNALS
 
-# Like Num
+# －－－－－－SIGNALS－－－－－－－
+
+# 在Like表保存后修改UserProfile中的Likes字段数目
 def add_like_or_cancle_like(delta):
 	def f(sender, instance, **kwargs):
 		to_post = instance.to
@@ -52,7 +54,7 @@ cancle_like = add_like_or_cancle_like(-1)
 post_delete.connect(cancle_like, sender=Like)
 
 
-# Follow Num
+# 同上，修改Follow和Follower字段的数目
 def add_or_cancle_follow(delta):
 	def f(sender, instance, **kwargs):
 		print('---------------------')
