@@ -1,0 +1,20 @@
+.container{
+    margin:5em 10em;
+  }
+
+.ui.cards > .card,
+.ui.card {
+  width: 400px;
+}
+
+#left-card-profile-content{
+	padding: 4em 2em 1em 2em;
+}
+
+#left-card-about{
+	margin-top: 2em;
+}
+
+#comment-header{
+	padding:0.5em 0.5em;
+}
