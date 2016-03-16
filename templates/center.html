@@ -8,70 +8,27 @@
         <a class="header">我叫哈哈</a>
         <div class="description">
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates voluptatum inventore ab neque ipsam, consequuntur officia, earum dignissimos tempora voluptatem at commodi nam. Dolores quis, veniam voluptatum tempore nihil laudantium.</p>
-          <div class="ui segments">
-            <div class="ui segment" id="comment-header">
-                <p>评论</p>
-              </div>
-              <div class="ui green secondary segment">
-                <div class="ui threaded comments">
-                  <div class="comment">
-                    <a class="avatar">
-                      <img src="/images/avatar/small/elliot.jpg">
-                    </a>
-                    <div class="content">
-                      <a class="author">Elliot Fu</a>
-                      <div class="metadata">
-                        <span class="date">昨天上午12:30</span>
-                      </div>
-                      <div class="text">
-                        <p>This has been very useful for my research. Thanks as well!</p>
-                      </div>
-                      <div class="actions">
-                        <a class="reply">Reply</a>
-                      </div>
-                    </div>
-                    <div class="comments">
-                      <div class="comment">
-                        <a class="avatar">
-                          <img src="/images/avatar/small/jenny.jpg">
-                        </a>
-                        <div class="content">
-                          <a class="author">Jenny Hess</a>
-                          <div class="metadata">
-                            <span class="date">刚刚</span>
-                          </div>
-                          <div class="text">Elliot you are always so right :) </div>
-                          <div class="actions">
-                            <a class="reply">Reply</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="comment">
-                    <a class="avatar">
-                      <img src="/images/avatar/small/joe.jpg">
-                    </a>
-                    <div class="content">
-                      <a class="author">Joe Henderson</a>
-                      <div class="metadata">
-                        <span class="date">5 天以前</span>
-                      </div>
-                      <div class="text">老兄，这太棒了。非常感谢。 </div>
-                      <div class="actions">
-                        <a class="reply">Reply</a>
-                      </div>
-                    </div>
-                  </div>
-                  <form class="ui reply form">
-                    <div class="field">
-                      <textarea></textarea>
-                    </div>
-                    <div class="ui blue labeled submit icon button"><i class="icon edit"></i> Add Reply </div>
-                  </form>
+            <!-- <div class="ui styled fluid accordion">
+              <div class="title"  id="center-card-comment-title">评论<i class="dropdown icon pull right"></i></div>
+              <div class="content">
+                <div class="ui minimal comments">
+                  {% include 'comments.html' %}
                 </div>
               </div>
+            </div>
+          </div> -->
+          
+          <div class="ui pointing secondary menu">
+            <a class="item">评论</a>
+            <a class="item"><i class="heart icon"></i> 128 关注 </a>
+            <a class="item"><i class="users icon"></i> 356 粉丝 </a>
           </div>
+          <div class="hidden-div" id="comments-div">
+            {% include 'comments.html' %}
+          </div>
+          </div>
+          
+
         </div>
       </div>
     </div>

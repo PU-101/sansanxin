@@ -1,10 +1,30 @@
 .container{
-    margin:5em 10em;
+    margin:5em 5em;
   }
 
 .ui.cards > .card,
 .ui.card {
   width: 400px;
+}
+
+.ui.accordion .accordion .title .dropdown.icon, .ui.accordion .title .dropdown.icon{
+    float: right;
+}
+
+.ui.styled.accordion, .ui.styled.accordion .accordion {
+    border-radius: .28571429rem;
+    background: #fff;
+    box-shadow: 0 1px 2px 0 #21ba45,0 0 0 3px rgba(34,36,38,0);
+}
+
+.ui.secondary.pointing.menu {
+    margin-left: 0;
+    margin-right: 0;
+    border-bottom: 2px solid #b5cc18;
+}
+
+.hidden-div{
+  display: none;
 }
 
 #left-card-profile-content{
@@ -15,6 +35,7 @@
 	margin-top: 2em;
 }
 
-#comment-header{
-	padding:0.5em 0.5em;
+#center-card-comment-title {
+    box-shadow: 3px 5px 10px 0 rgba(34,36,38,.1),0 0 0 6px rgba(255,255,255,0);
 }
+

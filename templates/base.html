@@ -12,7 +12,10 @@
   <title>Homepage - Semantic</title>
   <link rel="stylesheet" type="text/css" href="{% static 'blog/css/semantic.min.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'blog/css/custom.css' %}">
+  <script src="{% static 'blog/js/jquery.min.js' %}"></script>
+  <script src="{% static 'blog/js/custom.js' %}"></script>
   <script src="{% static 'blog/js/semantic.min.js' %}"></script>
+  
 
 </head>
 <body>
@@ -25,10 +28,10 @@
             {% include 'left.html' %}
           </div>
         </div>
-        <div class="sixteen wide mobile eight wide computer column" id="center">
+        <div class="sixteen wide mobile nine wide computer column" id="center">
           {% include 'center.html' %}
         </div>
-        <div class="four wide computer only column" id="right">
+        <div class="three wide computer only column" id="right">
           {% include 'right.html' %}
         </div>
       </div> 
