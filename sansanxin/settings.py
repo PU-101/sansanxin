@@ -133,3 +133,8 @@ STATICFILES_DIRS = (
 # Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+# LOGIN URL
+LOGIN_URL = '/login/'  #if have'nt login
+LOGIN_REDIRECT_URL = '/index/'   #when login sucessfully, automativally redirect the site,default='/accounts/profile/'

@@ -25,8 +25,9 @@ class UserProfile(models.Model):
 	updated_at = models.DateTimeField(auto_now=True, auto_now_add=False)
 	created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
 
-	follows = models.PositiveIntegerField(default=0)
-	followers = models.PositiveIntegerField(default=0)
+	posts_num = models.PositiveIntegerField(default=0)
+	follows_num = models.PositiveIntegerField(default=0)
+	followers_num = models.PositiveIntegerField(default=0)
 
 	@property
 	def age(self):

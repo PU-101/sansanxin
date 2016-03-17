@@ -1,7 +1,7 @@
 $(document).ready(function(){
-      $('.ui.accordion').accordion();
+      // $('.ui.accordion').accordion();
       // $('.menu .item').tab();
-      $('.menu .item').click(function(){
+      $('.pointing.secondary.menu .item').click(function(){
             if($(this).hasClass('active')){
                 // $("#comments-div").addClass('hidden-div');
                 $(this).removeClass('active');   
@@ -9,7 +9,25 @@ $(document).ready(function(){
                 $(this).addClass('active');
                 // $("#comments-div").removeClass('hidden-div');               
             }
-            $("#comments-div").toggle('fast'); 
+            var thisCommentsDiv = $(this).parent().parent().find('.comments-div');
+            thisCommentsDiv.toggle('fast'); 
         });
+
+      // fix main menu to page on passing
+      $('.navbar.menu').visibility({
+        type: 'fixed'
+      });
+
+      // lazy load images
+      $('.image').visibility({
+        type: 'image',
+        transition: 'vertical flip in',
+        duration: 500
+      });
+
+      // show dropdown on hover
+      $('.navbar.menu  .ui.dropdown').dropdown({
+        on: 'hover'
+      });
 
 });

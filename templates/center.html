@@ -1,36 +1,26 @@
 <div class="ui raised segment">
   <div class="ui divided items">
-    <div class="item">
-      <a class="ui tiny image">
-        <img src="/images/avatar/large/stevie.jpg">
-      </a>
-      <div class="content">
-        <a class="header">我叫哈哈</a>
-        <div class="description">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates voluptatum inventore ab neque ipsam, consequuntur officia, earum dignissimos tempora voluptatem at commodi nam. Dolores quis, veniam voluptatum tempore nihil laudantium.</p>
-            <!-- <div class="ui styled fluid accordion">
-              <div class="title"  id="center-card-comment-title">评论<i class="dropdown icon pull right"></i></div>
-              <div class="content">
-                <div class="ui minimal comments">
-                  {% include 'comments.html' %}
-                </div>
-              </div>
-            </div>
-          </div> -->
-          
-          <div class="ui pointing secondary menu">
-            <a class="item">评论</a>
-            <a class="item"><i class="heart icon"></i> 128 关注 </a>
-            <a class="item"><i class="users icon"></i> 356 粉丝 </a>
+    
+    {% for post in all_posts %}
+      <div class="item">
+        <a class="ui tiny image">
+          <img src="/images/avatar/large/stevie.jpg">
+        </a>
+        <div class="content">
+          <a class="header">
+            {% if post.user.username == user.username %}
+              我
+            {% else %}
+              {{ post.user.username }}
+            {% endif %}
+          </a>
+          <div class="description">
+            <p>{{ post.content }}</p>
           </div>
-          <div class="hidden-div" id="comments-div">
-            {% include 'comments.html' %}
-          </div>
-          </div>
-          
-
+          {% include 'comments.html' %}
         </div>
       </div>
-    </div>
+    {% endfor %}
+
   </div>
 </div>

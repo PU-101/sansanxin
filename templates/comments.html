@@ -1,17 +1,39 @@
-<div class="ui minimal comments">
-  <div class="comment">
-    <a class="avatar">
-      <img src="/images/avatar/small/matt.jpg">
+<div>
+  <div class="ui pointing secondary menu">
+    <a class="item">
+      <i class="comments icon"></i>评论
+      <div class="ui circular label">{{ post.comments }}</div>
     </a>
-    <div class="content">
-      <a class="author">Matt</a>
-      <div class="metadata">
-        <span class="date">今天下午 5:42</span>
-      </div>
-      <div class="text">太赞了！</div>
-      <div class="actions">
-        <a class="reply">Reply</a>
+    <a class="item">
+      <i class="thumbs outline up icon"></i>赞
+      <div class="ui circular label">{{ post.comments }}</div>
+    </a>
+  </div>
+
+
+  <div class="hidden-div comments-div"> 
+    <div class="ui minimal comments">
+      <div class="comment">
+        <a class="avatar">
+          <img src="/images/avatar/small/matt.jpg">
+        </a>
+        <div class="content">
+          <a class="author">Matt</a>
+          <div class="metadata">
+            <span class="date">今天下午 5:42</span>
+          </div>
+          <div class="text">太赞了！</div>
+          <div class="actions">
+            <a class="reply">Reply</a>
+          </div>
+        </div>
       </div>
     </div>
+    <div class="ui fluid action input">
+      <input type="text" value="http://ww.short.url/c0opq">
+      <button class="ui teal right labeled icon button"> Copy </button>
+</div>
   </div>
+
+
 </div>
