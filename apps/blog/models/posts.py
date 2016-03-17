@@ -11,9 +11,9 @@ class Post(models.Model):
 	created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True, auto_now_add=False)
 
-	views = models.PositiveIntegerField(default=1)
-	likes = models.PositiveIntegerField(default=0)
-	comments = models.PositiveIntegerField(default=0)
+	views_num = models.PositiveIntegerField(default=1)
+	likes_hum = models.PositiveIntegerField(default=0)
+	comments_num = models.PositiveIntegerField(default=0)
 
 	objects = models.Manager()
 	my_post_manager = MyPostManager()

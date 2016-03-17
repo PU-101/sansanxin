@@ -1,7 +1,7 @@
 $(document).ready(function(){
       // $('.ui.accordion').accordion();
       // $('.menu .item').tab();
-      $('.pointing.secondary.menu .item').click(function(){
+      $('.comment-menu .item').click(function(){
             if($(this).hasClass('active')){
                 // $("#comments-div").addClass('hidden-div');
                 $(this).removeClass('active');   
