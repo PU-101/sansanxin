@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, render_to_response, get_object_or_404
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout, get_user
 from django.contrib.auth.decorators import login_required
@@ -31,9 +31,18 @@ def index(request):
     context_dict['all_posts'] = all_posts
 
     all_comments = Comment.objects.all()
-    print(all_comments)
     context_dict['all_comments'] = all_comments
 
     return render(request, 'base.html', context_dict)
 
+
+def get_comments(request):
+    if request.method == 'GET':
+        post_id = request.GET['post_id']
+        which_post = get_object_or_404(Post, id=int(post_id))
+        comments_of_this_post = Comment.objects.filter(post=which_post)
+        resp = render_to_response('comment/comments_content.html', comments_of_this_post)
+        print(resp.content)
+
+        return render_to_response('comment/comments_content.html', {'comments_of_this_post': comments_of_this_post})
 

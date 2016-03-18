@@ -1,16 +1,25 @@
 $(document).ready(function(){
       // $('.ui.accordion').accordion();
       // $('.menu .item').tab();
+
       $('.comment-menu .item').click(function(){
-            if($(this).hasClass('active')){
-                // $("#comments-div").addClass('hidden-div');
-                $(this).removeClass('active');   
-            }else{
-                $(this).addClass('active');
-                // $("#comments-div").removeClass('hidden-div');               
-            }
-            var thisCommentsDiv = $(this).parent().parent().find('.comments-div');
-            thisCommentsDiv.toggle('fast'); 
+          if($(this).hasClass('active')){
+              $(this).removeClass('active');   
+          }else{
+              $(this).addClass('active');            
+          }
+
+          // 生成评论框
+          var thisCommentsDiv = $(this).parent().parent().find('.comments-div');
+          thisCommentsDiv.toggle('fast'); 
+
+          // 动态生成评论内容
+          var data_post_id = $(this).attr('data-post-id');
+          $.get('/comments/get_comments/',
+            {post_id: data_post_id},
+            function(data){
+              thisCommentsDiv.find('.comments').html(data);
+            });
         });
 
       // fix main menu to page on passing

@@ -1,0 +1,23 @@
+<div>
+  <div class="comment-menu">
+    <a class="item" data-post-id='{{ post.id }}'>
+      <i class="comments icon"></i>评论
+      <div class="ui circular label">{{ post.comments_num }}</div>
+    </a>
+  </div>
+
+
+  <div class="hidden-div comments-div"> 
+    <div class="ui minimal comments">
+      
+      {% include 'comment/comments_content.html' %}
+
+    </div>
+
+    <div class="ui fluid action input">
+      <input type="text" value="http://ww.short.url/c0opq">
+      <button class="ui teal right labeled icon button"> Copy </button>
+    </div>
+  </div>
+
+</div>
