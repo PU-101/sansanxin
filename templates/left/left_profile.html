@@ -1,26 +1,25 @@
 {% load staticfiles %}
 
-
-<div class="ui card center">
-  <div class="image">
+<div class="profile-card mdl-shadow--2dp center">
+  <div class="background-image">
     <img src="{% static 'blog/images/background.jpg' %}">
   </div>
-  <div class="content" id="left-card-profile-content">
-    <img class="ui circular image" src="{% static 'blog/images/veronika.jpg' %}">
-    <a class="header">{{ user_prof.user.username }}</a>
-    <div class="description">今天天气不错。。。。</div>
+  <div class="protrait-image">
+    <img class="circular mdl-shadow--4dp" src="{% static 'blog/images/veronika.jpg' %}">
   </div>
-  <div class="extra content">
-    <div class="ui small horizontal divided list">
-      <div class="item">
-        <a><i class="file text outline icon"></i>博文 </a>
-      </div>
-      <div class="item">
-        <a><i class="heart icon"></i> 128 关注 </a>
-      </div>
-      <div class="item">
-        <a><i class="users icon"></i> 356 粉丝 </a>
-      </div>
+  <div class="content">
+    <a class="username">{{ user_prof.user.username }}</a>
+    <div class="signature mdl-color-text--grey-700">今天天气不错。。。。</div>
+  </div>
+  <div class="extra-content">
+    <div class="posts">
+      <small><strong class="num">365</strong> 博文</small>
+    </div>
+    <div class="follows">
+      <small><strong class="num">128</strong> 关注者</small>
+    </div>
+    <div class="followers">
+      <small><strong class="num">780</strong> 粉丝</small>
     </div>
   </div>
 </div>
