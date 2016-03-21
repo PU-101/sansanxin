@@ -4,8 +4,11 @@
   <div class="comment" >
     <div class="comment__header">
       <div class="comment__author">
-        <img src="{% static "blog/images/veronika.jpg" %}" class="comment__avatar">
-        <strong>{{ comment.user.username }}</strong>
+        <img class="comment__avatar" src="{% static "blog/images/veronika.jpg" %}">
+        <strong>{{ comment.by.username }}</strong>
+        {% if comment.reply_to %}
+          <small>&nbsp;&nbsp;回复：{{ comment.reply_to.username }}</small>
+        {% endif %}
       </div>
       <div class="comment__actions">
         <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
@@ -17,7 +20,7 @@
     <div class="comment__text">
       {{ comment.content }}
     </div>
-    <small class="comment__date">2天前</small>
+    <small class="comment__date">{{ comment.created_at|timesince }} 前发布</small>
   </div>
 {% endfor %}
 

@@ -20,7 +20,7 @@
       <img class="avatar" src="{% static "blog/images/veronika.jpg" %}" alt="">
        <div href="" class="author">
          <strong>{{ post.user.username }}</strong>
-         <span>2天前 发布</span>
+         <span>{{ post.created_at|timesince }} 前发布</span>
        </div>
        
        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
@@ -38,7 +38,7 @@
     {% csrf_token %}
       <div class="mdl-textfield mdl-js-textfield">
         <input type="hidden" name="comment_to" value="{{ post.id }}" />
-        
+        <input type="hidden" name="reply_to" value="" />
         <textarea rows="1" class="mdl-textfield__input" type="text" name='comment_content'></textarea>
         <label class="mdl-textfield__label" >说些什么吧^_^</label>
       </div>

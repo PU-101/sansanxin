@@ -8,6 +8,9 @@ from . import MyPostManager
 """
 class Post(models.Model):
 	user = models.ForeignKey(User)
+	commented_by = models.ManyToManyField(User, through='Comment', through_fields=('to', 'by'), related_name='post_commented_by')
+	liked_by = models.ManyToManyField(User, through='Like', through_fields=('to', 'by'), related_name='post_liked_by')
+
 	title = models.CharField(max_length=40, blank=True)
 	content = models.CharField(max_length=280, blank=True)
 	picture = models.ImageField(blank=True, null=True)
