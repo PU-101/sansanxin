@@ -9,17 +9,17 @@
   </div>
   <div class="content">
     <a class="username">{{ user_prof.user.username }}</a>
-    <div class="signature mdl-color-text--grey-700">今天天气不错。。。。</div>
+    <div class="signature mdl-color-text--grey-700">{{ user_prof.signature }}</div>
   </div>
   <div class="extra-content">
     <div class="posts">
-      <small><strong class="num">365</strong> 博文</small>
+      <small><strong class="num">{{ user_prof.posts_num }}</strong> 博文</small>
     </div>
     <div class="follows">
-      <small><strong class="num">128</strong> 关注者</small>
+      <small><strong class="num">{{ user_prof.follows_num}}</strong> 关注者</small>
     </div>
     <div class="followers">
-      <small><strong class="num">780</strong> 粉丝</small>
+      <small><strong class="num">{{ user_prof.followers_num}}</strong> 粉丝</small>
     </div>
   </div>
 </div>

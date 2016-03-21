@@ -1,4 +1,5 @@
-from django.shortcuts import render, render_to_response, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout, get_user
 from django.contrib.auth.decorators import login_required
@@ -41,8 +42,18 @@ def get_comments(request):
         post_id = request.GET['post_id']
         which_post = get_object_or_404(Post, id=int(post_id))
         comments_of_this_post = Comment.objects.filter(post=which_post)
-        resp = render_to_response('comment/comments_content.html', comments_of_this_post)
-        print(resp.content)
+        
+        return render(request, 'center/comments.html', {'comments_of_this_post': comments_of_this_post})
 
-        return render_to_response('comment/comments_content.html', {'comments_of_this_post': comments_of_this_post})
+
+def post_comment(request):
+    if request.method == 'POST':
+        comment_by = get_user(request)
+        post_id = request.POST['comment_to']
+        # reply_to = request.POST['reply_to']
+        comment_content = request.POST['comment_content']
+        comment_to = get_object_or_404(Post, id=post_id)
+        c = Comment.objects.create(post=comment_to, user=comment_by, content=comment_content)
+
+        return redirect('/')
 

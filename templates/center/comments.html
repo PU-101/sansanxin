@@ -1,0 +1,23 @@
+{% load staticfiles %}
+
+{% for comment in comments_of_this_post %}
+  <div class="comment" >
+    <div class="comment__header">
+      <div class="comment__author">
+        <img src="{% static "blog/images/veronika.jpg" %}" class="comment__avatar">
+        <strong>{{ comment.user.username }}</strong>
+      </div>
+      <div class="comment__actions">
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
+          回复
+        </button>
+      </div>
+      <div style="clear: both"></div>
+    </div>
+    <div class="comment__text">
+      {{ comment.content }}
+    </div>
+    <small class="comment__date">2天前</small>
+  </div>
+{% endfor %}
+
