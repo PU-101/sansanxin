@@ -40,6 +40,9 @@ INSTALLED_APPS = [
 
     # My Apps
     'apps.blog',
+
+    # Thirdy-party Apps
+    'djcelery',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -136,5 +139,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # LOGIN URL
-LOGIN_URL = '/login/'  #if have'nt login
-LOGIN_REDIRECT_URL = '/index/'   #when login sucessfully, automativally redirect the site,default='/accounts/profile/'
+LOGIN_URL = '/login/'  # if have'nt login
+LOGIN_REDIRECT_URL = '/index/'   # when login sucessfully, automativally redirect the site,default='/accounts/profile/'
+
+
+# DJANGO-CELERY
+import djcelery
+djcelery.setup_loader()
+BROKER_URL = 'django://'

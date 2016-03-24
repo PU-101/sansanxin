@@ -1,7 +1,7 @@
 {% load staticfiles %}
 
 {% for post in all_posts %}
-<div>
+<div id="{{ post.id }}">
   <div class="post-card mdl-card mdl-shadow--6dp">
     <a href="#" style="position:relative;">
       <div class="mdl-card__title">
@@ -38,8 +38,10 @@
     {% csrf_token %}
       <div class="mdl-textfield mdl-js-textfield">
         <input type="hidden" name="comment_to" value="{{ post.id }}" />
-        <input type="hidden" name="reply_to" value="" />
-        <textarea rows="1" class="mdl-textfield__input" type="text" name='comment_content'></textarea>
+        <textarea rows="1" class="comment-input mdl-textfield__input" type="text" name='comment_field'></textarea>
+        <table>
+          <tr><td>{{ form.comment_content_field.errors }}</td></tr>
+        </table>
         <label class="mdl-textfield__label" >说些什么吧^_^</label>
       </div>
       <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab" type="submit" name="submit">
