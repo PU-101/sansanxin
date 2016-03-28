@@ -3,7 +3,9 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.index, name='homepage'),
+    url(r'^(?P<current_page_num>\d+)/$', views.index, name='pagination_page'),
     url(r'^comments/get_comments/$', views.get_comments, name='get_comments'),
     url(r'^comments/post_comment/$', views.post_comment, name='post_comment'),
+
 ]

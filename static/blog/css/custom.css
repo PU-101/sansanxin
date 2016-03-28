@@ -208,3 +208,14 @@ textarea {
 .comment>.comment__date {
   margin-left: 2em;
 }
+
+
+/* PAGINATOR */
+.paginator li {
+  display: inline;
+}
+
+.paginator .mdl-button {
+  display: inline;
+  min-height: 20px;
+}

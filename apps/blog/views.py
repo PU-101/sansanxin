@@ -12,15 +12,6 @@ from .models import UserProfile, Post, Follow, Comment
 from .forms import CommentForm
 
 
-# Create your views here.
-# class PostList(ListView):
-#     u = User.objects.get(username='lkl')
-#     my_follows = map(lambda x: x.user2, Follow.my_post_manager.get_raw_followers(u))
-#     my_follows_posts = Post.my_post_manager.get_posts(u, my_follows)
-
-#     queryset = my_follows_posts
-
-#     template_name = 'base.html'
 
 def get_object_or_None(model, **kwargs):
     try:
@@ -29,8 +20,9 @@ def get_object_or_None(model, **kwargs):
         return None
 
 
-def listPaginatior(obj_list, per_page, current_page_num):
+def myPaginatior(obj_list, per_page=10, current_page_num=1):
     paginator = Paginator(obj_list, per_page)
+    page_range = paginator.page_range
     try:
         context = paginator.page(current_page_num)
     except PageNotAnInteger:
@@ -38,12 +30,14 @@ def listPaginatior(obj_list, per_page, current_page_num):
     except EmptyPage:
         context = paginator.page(paginator.num_pages)
     finally:
+        setattr(context, 'page_range', page_range)
         return context
 
 
 
 @login_required
-def index(request):
+def index(request, current_page_num=1):
+    current_page_num = int(current_page_num)
     context_dict = {}
 
     u_login = get_user(request)
@@ -51,9 +45,9 @@ def index(request):
     context_dict['user_prof'] = user_prof
 
     user_follows = map(lambda x: x.user2, Follow.my_post_manager.get_raw_followers(u_login))
-    all_posts = Post.my_post_manager.get_posts(u_login, user_follows).select_related('user__username')
+    all_posts = Post.my_post_manager.get_posts(u_login, user_follows).select_related('user')
     
-    context_dict['all_posts'] = listPaginatior(all_posts, 3, 1)
+    context_dict['all_posts'] = myPaginatior(all_posts, 3, current_page_num)
 
     return render(request, 'base.html', context_dict)
 
@@ -62,8 +56,8 @@ def get_comments(request):
     if request.method == 'GET':
         post_id = request.GET['post_id']
         which_post = get_object_or_404(Post, id=int(post_id))
-        comments_of_this_post = Comment.objects.filter(to=which_post).select_related('by__username', 'to__user__username', 'reply_to__username')
-        comments_of_this_post = listPaginatior(comments_of_this_post, 5, 1)
+        comments_of_this_post = Comment.objects.filter(to=which_post).select_related('by', 'to__user', 'reply_to')
+        comments_of_this_post = myPaginatior(comments_of_this_post, 5, 1)
 
         return render(request, 'center/comments.html', {'comments_of_this_post': comments_of_this_post, 'post_id': post_id})
 

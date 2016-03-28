@@ -38,11 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Thirdy-party Apps
+
     # My Apps
     'apps.blog',
-
-    # Thirdy-party Apps
-    'djcelery',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -143,7 +142,21 @@ LOGIN_URL = '/login/'  # if have'nt login
 LOGIN_REDIRECT_URL = '/index/'   # when login sucessfully, automativally redirect the site,default='/accounts/profile/'
 
 
-# DJANGO-CELERY
-import djcelery
-djcelery.setup_loader()
-BROKER_URL = 'django://'
+# CELERY 
+BROKER_URL = 'redis://localhost:6379' 
+CELERY_RESULT_BACKEND = 'redis://localhost:6379' 
+CELERY_ACCEPT_CONTENT = ['application/json'] 
+CELERY_TASK_SERIALIZER = 'json' 
+CELERY_RESULT_SERIALIZER = 'json' 
+CELERY_TIMEZONE = 'Africa/Nairobi'
+
+
+# CELERY
+BROKER_URL = 'redis://localhost:6379' 
+CELERY_RESULT_BACKEND = 'redis://localhost:6379' 
+ 
+CELERY_TASK_SERIALIZER = 'json' 
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_ACCEPT_CONTENT = ['json'] 
+CELERY_TIMEZONE = TIME_ZONE
+# CELERY_ENABLE_UTC = True
