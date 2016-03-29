@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     # My Apps
     'apps.blog',
+    'apps.spider',
 ]
 
 MIDDLEWARE_CLASSES = [
