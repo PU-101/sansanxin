@@ -39,9 +39,9 @@ class MySpider(object):
 		response_list = self.Response(request_list)
 
 		if callback is not None:
-			return self.__get_items(response_list, callback)
+			return self.__get_items(response_list, callback, url_list)
 		else:
-			return self.__get_items(response_list, self.parse)
+			return self.__get_items(response_list, self.parse, url_list)
 
 	def Response(self, request_list):
 		def get_response(request):
@@ -53,12 +53,15 @@ class MySpider(object):
 				return None
 		return map(get_response, request_list)
 
-	def parse(self, response):
-		response = response.xpath('*')
+	def parse(self, response_and_url):
+		response = response_and_url[0].xpath('*')
 		return
 
-	def __get_items(self, response_list, func):
+	def __get_items(self, response_list, func, url_list):
 		selector_list = map(etree.HTML, response_list)
+		# selector_list = map(lambda x: setattr(x[0], 'url', x[1]), zip(selector_list, url_list))
+		selector_list = zip(selector_list, url_list)
+		
 		return map(func, selector_list)
 
 	def url_join(self, href):
