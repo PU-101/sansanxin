@@ -36,32 +36,33 @@ class MySpider(object):
 		get urls, return parse() or callback()
 		"""
 		request_list = map(lambda url: urllib.request.Request(url, headers=self.__REQUEST_HEADERS), url_list)
-		response_list = self.Response(request_list)
+		response_and_url_list = self.Response(request_list, url_list)
 
 		if callback is not None:
-			return self.__get_items(response_list, callback, url_list)
+			return self.__get_items(response_and_url_list, callback)
 		else:
-			return self.__get_items(response_list, self.parse, url_list)
+			return self.__get_items(response_and_url_list, self.parse)
 
-	def Response(self, request_list):
+	def Response(self, request_list, url_list):
 		def get_response(request):
 			try:
 				with urllib.request.urlopen(request) as resp:
+					if resp.getcode() != 200:
+						return None
 					response = resp.read()
 					return response
 			except urllib.error.URLError:
 				return None
-		return map(get_response, request_list)
+
+		return zip(map(get_response, request_list), url_list)
 
 	def parse(self, response_and_url):
 		response = response_and_url[0].xpath('*')
 		return
 
-	def __get_items(self, response_list, func, url_list):
-		selector_list = map(etree.HTML, response_list)
-		# selector_list = map(lambda x: setattr(x[0], 'url', x[1]), zip(selector_list, url_list))
-		selector_list = zip(selector_list, url_list)
-		
+	def __get_items(self, response_and_url_list, func):
+		# 删掉无效的元素
+		selector_list = ((etree.HTML(response), url) for response, url in response_and_url_list if response is not None)		
 		return map(func, selector_list)
 
 	def url_join(self, href):

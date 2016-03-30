@@ -48,9 +48,9 @@ $(document).ready(function(){
   /**
    *Emoji
    */
-   $(".comment-input").emojioneArea({
-      autoHideFilters: true
-    });
+   // $(".comment-input").emojioneArea({
+   //    autoHideFilters: true
+   //  });
 
 
 });

@@ -24,7 +24,7 @@ class UrlManger(object):
 		"""
 		new_url = self.new_urls.pop()
 		self.old_urls.add(new_url)
-		return [new_url,]
+		return new_url
 
 	@property
 	def has_new_url(self):

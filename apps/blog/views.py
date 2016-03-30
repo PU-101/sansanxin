@@ -70,8 +70,6 @@ def post_comment(request):
         form = CommentForm(request.POST)
         if form.is_valid():
             comment_raw_content = form.cleaned_data['comment_field']
-            print('-----------------------------------')
-            print(comment_raw_content.encode('utf8mb4'))
             pattern = re.compile(r'^(?:\s*回复\s*(.*?)\s*[:：]+)?\s*(.*?)$')
             comment_reply_to, comment_content = re.match(pattern, comment_raw_content).groups()
             print(comment_reply_to, comment_content)
