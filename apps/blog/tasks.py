@@ -7,10 +7,10 @@ logger = get_task_logger(__name__)
 
 
 @periodic_task(
-	run_every=(crontab()), 
+	run_every=(crontab(minute='*/5')), 
 	name='print_hi_task', 
 	ignore_result=True
 	)
 def print_sth_task():
 	logger.info('Print Something ')
-	print('----------per minute------------------')
+	print('----------per hour------------------')

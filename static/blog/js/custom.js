@@ -37,13 +37,20 @@ $(document).ready(function(){
     var textfield = $(commentInput).parent();
     $(commentInput).focus();
 
-    $(commentInput).text(replyHeader);
+    $(commentInput).val(replyHeader);
     $(textfield).get(0).MaterialTextfield.checkDirty();
-    // componentHandler.upgradeElement(commentInput);
+    // $(textfield).get(0).MaterialTextfield.change(replyHeader);
 
     // 动态生成评论内容和错误信息
     
   });
+
+  /**
+   *Emoji
+   */
+   $(".comment-input").emojioneArea({
+      autoHideFilters: true
+    });
 
 
 });

@@ -103,6 +103,7 @@ textarea {
 
 .post-card {
     width: 100%;
+    min-height: 0;
     margin-bottom: 1em;
 }
 
@@ -218,4 +219,36 @@ textarea {
 .paginator .mdl-button {
   display: inline;
   min-height: 20px;
+}
+
+
+/* RIGHT DIV */
+.right-div {
+  padding:1em 1em;
+}
+
+.right-card {
+  width: 100%;
+  min-height: 0;
+  margin-bottom: 1em;
+
+  transition:box-shadow 0.2s ease-in-out;
+  -moz-transition:box-shadow 0.2s ease-in-out;
+  -webkit-transition:box-shadow 0.2s ease-in-out;
+  -o-transition:box-shadow 0.2s ease-in-out;
+}
+
+.right-card:hover {
+  box-shadow: 0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12),0 3px 5px -1px rgba(0,0,0,.2);
+}
+
+.right-card .mdl-card__supporting-text {
+  padding: 0.5em 1em;
+}
+
+.right-card .mdl-card__footer {
+  color: rgba(0,0,0,.54);
+  font-size: 1rem;
+  line-height: 18px;
+  padding: 1px 16px;
 }

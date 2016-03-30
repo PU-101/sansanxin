@@ -1,0 +1,19 @@
+{% if cals %}
+	{% for item in cals %}
+		<div class="right-card mdl-card mdl-shadow--2dp">
+		  <div class="mdl-card__media mdl-shadow--4dp">
+		  	<a href="{{ item.url }}" target="_blank">
+		    	<img src="{{ item.img_src }}" width='100%' alt="">
+		    </a>
+		  </div>
+		  <div class="mdl-card__supporting-text">
+		    <a href="{{ item.url }}" target="_blank">{{ item.title }}</a>
+		  </div>
+		  <div class="mdl-card__footer mdl-shadow--3dp">
+		    {{ item.created_at|date:'Y-m-d' }} 发布
+		  </div>
+		</div>
+	{% endfor %}
+{% endif %}
+
+

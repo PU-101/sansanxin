@@ -34,15 +34,14 @@ def myPaginatior(obj_list, per_page=10, current_page_num=1):
         return context
 
 
-
 @login_required
 def index(request, current_page_num=1):
     current_page_num = int(current_page_num)
     context_dict = {}
 
     u_login = get_user(request)
-    user_prof = get_object_or_404(UserProfile, user=u_login)
-    context_dict['user_prof'] = user_prof
+    # user_prof = get_object_or_404(UserProfile, user=u_login)
+    # context_dict['user_prof'] = user_prof
 
     user_follows = map(lambda x: x.user2, Follow.my_post_manager.get_raw_followers(u_login))
     all_posts = Post.my_post_manager.get_posts(u_login, user_follows).select_related('user')
@@ -71,6 +70,8 @@ def post_comment(request):
         form = CommentForm(request.POST)
         if form.is_valid():
             comment_raw_content = form.cleaned_data['comment_field']
+            print('-----------------------------------')
+            print(comment_raw_content.encode('utf8mb4'))
             pattern = re.compile(r'^(?:\s*回复\s*(.*?)\s*[:：]+)?\s*(.*?)$')
             comment_reply_to, comment_content = re.match(pattern, comment_raw_content).groups()
             print(comment_reply_to, comment_content)
