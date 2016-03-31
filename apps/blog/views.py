@@ -48,7 +48,7 @@ def index(request, current_page_num=1):
     
     context_dict['all_posts'] = myPaginatior(all_posts, 3, current_page_num)
 
-    return render(request, 'base.html', context_dict)
+    return render(request, 'index.html', context_dict)
 
 
 def get_comments(request):

@@ -4,12 +4,7 @@ $(document).ready(function(){
    *评论按钮
    */
   $('.comment-button').click(function(){
-    // if($(this).hasClass('active')){
-    //     $(this).removeClass('active');   
-    // }else{
-    //     $(this).addClass('active');            
-    // }
-
+    
     // 生成评论框
     var thisCommentsDiv = $(this).parent().parent().parent().find('.comments-div');
     thisCommentsDiv.slideToggle('fast'); 
@@ -20,7 +15,6 @@ $(document).ready(function(){
       {post_id: data_post_id},
       function(data){
         thisCommentsDiv.find('.comments-content').html(data);
-        // componentHandler.upgradeDom();
       });
     });
 
@@ -38,7 +32,7 @@ $(document).ready(function(){
     $(commentInput).focus();
 
     $(commentInput).val(replyHeader);
-    $(textfield).get(0).MaterialTextfield.checkDirty();
+    // $(textfield).get(0).MaterialTextfield.checkDirty();
     // $(textfield).get(0).MaterialTextfield.change(replyHeader);
 
     // 动态生成评论内容和错误信息
@@ -46,11 +40,9 @@ $(document).ready(function(){
   });
 
   /**
-   *Emoji
+   *Dropdown
    */
-   // $(".comment-input").emojioneArea({
-   //    autoHideFilters: true
-   //  });
+   $(".dropdown-button").dropdown();
 
 
 });

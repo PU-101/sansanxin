@@ -1,7 +1,6 @@
 <!doctype html>
 
 {% load staticfiles %}
-{% load blog_extras %}
 
 <html lang="en">
   <head>
@@ -9,62 +8,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="繁忙的生活节奏，找个时间，和朋友约个时间，出门散散心吧">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>散散心</title>
 
-    <link rel="stylesheet" href="{% static 'blog/css/material.min.css' %}">
-    <link rel="stylesheet" href="{% static 'blog/css/emojionearea.min.css' %}">
+    <title>{% block title %}散散心{% endblock title %}</title>
+
+    <link rel="stylesheet" href="{% static 'blog/css/materialize.min.css' %}">
+    {% include 'material/includes/material_css.html' %}
     <link rel="stylesheet" href="{% static 'blog/css/custom.css' %}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
  
   </head>
 
 
   <body>
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-      
-      <header class="mdl-layout__header">
-        <img class="mdl-layout-icon"></img>
+    {% include 'navbar.html' %}
 
-        {% include 'navbar.html' %}
-
-      </header>
-
-      <main class="mdl-layout__content">
-        <div class="mdl-grid">
-          <div class="mdl-cell mdl-cell--3-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
-            <div class="mdl-grid">
-              <div class="mdl-cell mdl-cell--12-col">
-
-                {% get_userprofile_info user %}
-
-              </div>
-              <div class="mdl-cell mdl-cell--12-col mdl-cell--hide-tablet mdl-cell--hide-phone">
-                
-                {% include 'left/about.html' %}
-
-              </div>
-            </div>
-          </div>
-
-          <div class="center-div mdl-cell mdl-cell--6-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
-
-            {% include 'center/posts.html' %}
-
-          </div>
-
-          <div class="right-div mdl-cell mdl-cell--3-col-desktop mdl-cell--3-col-tablet mdl-cell--12-col-phone mdl-cell--hide-tablet mdl-cell--hide-phone">
-
-            {% get_mafengwo_list %}
-
-          </div>
-        </div>
-      </main>
-
+    <div class="body-container">
+      {% block content %}{% endblock %}
     </div>
-
-    <script src="{% static 'blog/js/material.min.js' %}"></script>
+    
     <script src="{% static 'blog/js/jquery.min.js' %}"></script>
-    <script src="{% static 'blog/js/emojionearea.min.js' %}"></script>
+    <script src="{% static 'blog/js/materialize.min.js' %}"></script>
+    {% include 'material/includes/material_js.html' %}
     <script src="{% static 'blog/js/custom.js' %}"></script>
   </body>
 </html>

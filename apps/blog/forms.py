@@ -6,7 +6,6 @@ class CommentForm(forms.Form):
 
 	def clean_comment_field(self):
 		a = self.cleaned_data['comment_field']
-		print(a)
 		# if a == 'aaa':
 		# 	raise forms.ValidationError('hehe')
 		# else:

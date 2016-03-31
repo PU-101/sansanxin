@@ -2,100 +2,69 @@
 
 {% for post in all_posts %}
 <div id="{{ post.id }}">
-  <div class="post-card mdl-card mdl-shadow--6dp">
-    <a href="#" style="position:relative;">
-      <div class="mdl-card__title">
-         <h2 class="mdl-card__title-text">{{ post.title }}</h2>
-      </div>
+  <div class="post-card card z-depth-2">
+	 <div class="card-image z-depth-2">
+	   <img src="{{ post.picture.url }}" width='100%'>
+	   <span class="card-title">{{ post.title }}</span>
+	 </div>
+	 <div class="card-content">
+	   <p>{{ post.content }}</p>
+	 </div>
+	 <div class="card-action z-depth-1">
+	   <img class="avatar circle responsive-img" src="{% static "blog/images/veronika.jpg" %}" alt="">
+	   <div href="" class="author">
+	     <strong>{{ post.user.username }}</strong>
+	     <span>{{ post.created_at|timesince }} 前发布</span>
+	   </div>
+	   
+      <a class="waves-effect waves-light btn indigo">
+        <i class="mdi-action-thumb-up left"></i>1223
+      </a>
+      <a class="comment-button waves-effect waves-light btn pink" data-post-id='{{ post.id }}'>
+        <i class="mdi-communication-textsms left"></i>234
+      </a>
 
-      <div class="mdl-card__media mdl-shadow--4dp">
-        <img src="{{ post.picture.url }}" width='100%' alt="">
-      </div>
-    </a>
+	 </div>
+	</div>
 
-    <div class="mdl-card__supporting-text">
-    {{ post.content }}
-    </div>
-    <div class="mdl-card__actions mdl-shadow--3dp">
-      <img class="avatar" src="{% static "blog/images/veronika.jpg" %}" alt="">
-       <div href="" class="author">
-         <strong>{{ post.user.username }}</strong>
-         <span>{{ post.created_at|timesince }} 前发布</span>
-       </div>
-       
-       <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-        <i class="material-icons">thumb_up</i>1223
-       </button>
-       <button class="comment-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-post-id='{{ post.id }}'>
-        <i class="material-icons">comment</i>234
-       </button>
-    </div>
-  </div>
+	<div class="comments-div z-depth-1" style="display: none;">
 
-  <div class="comments-div mdl-shadow--2dp mdl-color-text--grey-700" style="display: none;">
-    
-    <form action="/comments/post_comment/" method="POST"  class="comment-form">
-    {% csrf_token %}
-      <div class="mdl-textfield mdl-js-textfield">
-        <input type="hidden" name="comment_to" value="{{ post.id }}" />
-        <textarea rows="1" class="comment-input mdl-textfield__input" type="text" name='comment_field'></textarea>
-        <table>
-          <tr><td>{{ form.comment_content_field.errors }}</td></tr>
-        </table>
-        <label class="mdl-textfield__label" >说些什么吧^_^</label>
-      </div>
-      <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab" type="submit" name="submit">
-        <i class="material-icons" style="color:white;">add</i>
-      </button>
-    </form>
-    
-    <div class="comments-content"></div>
+		<div class="row">
+			<form class="comment-form col s12" action="/comments/post_comment/" method="POST">
+			{% csrf_token %}
+		
+            <input type="hidden" name="comment_to" value="{{ post.id }}" />
+			      <input class="comment-input" type="text" name='comment_field' placeholder="说些什么吧^_^">
 
-  </div>
+			    	<button class="btn waves-effect waves-light" type="submit" name="submit">评论
+						  <i class="mdi-content-send right"></i>
+					   </button>
+
+			</form>
+		</div>
+
+		<div class="comments-content"></div>
+	</div>
 
 </div>
 
 {% endfor %}
 
 
-<div class="paginator">
-  <ul>
-    <li>
-      <a class="mdl-button mdl-js-button mdl-js-ripple-effect"
-      {% if all_posts.has_previous %}
-      href="{% url 'pagination_page' all_posts.previous_page_number %}"
-      {% else %}
-      disabled
-      {% endif %}
-      >
-      <i class="material-icons">chevron_left</i>
-      </a>
-    </li>
+<ul class="pagination center-align">
+  <li class="{% if all_posts.has_previous %}waves-effect{% else %}disabled{% endif %}">
+    <a {% if all_posts.has_previous %} 
+          href="{% url 'pagination_page' all_posts.previous_page_number %}"
+        {% endif %}><i class="mdi-navigation-chevron-left"></i></a></li>
 
-    {% for p_num in all_posts.page_range %}
-      <li>
-        <a  class="mdl-button mdl-js-button mdl-js-ripple-effect 
-                  {% if p_num == all_posts.number %}
-                    mdl-button--raised mdl-button--accent
-                  {% endif %}
-                  "
-        href="{% url 'pagination_page' p_num %}"
-        >
-        {{ p_num }}
-        </a>
-      <li>
-    {% endfor %}
-
-    <li>
-      <a class="mdl-button mdl-js-button mdl-js-ripple-effect"
-      {% if all_posts.has_next %}
-      href="{% url 'pagination_page' all_posts.next_page_number %}"
-      {% else %}
-      disabled
-      {% endif %}
-      >
-      <i class="material-icons">chevron_right</i>
-      </a>
+  {% for p_num in all_posts.page_range %}
+    <li class="{% if p_num == all_posts.number %}active{% else %}waves-effect{% endif %}">
+      <a href="{% url 'pagination_page' p_num %}">{{ p_num }}</a>
     </li>
-  </ul>
-</div>
+  {% endfor %}
+  
+  <li class="{% if all_posts.has_previous %}waves-effect{% else %}disabled{% endif %}">
+    <a {% if all_posts.has_next %} 
+          href="{% url 'pagination_page' all_posts.next_page_number %}"
+        {% endif %}><i class="mdi-navigation-chevron-right"></i></a></li>
+</ul>

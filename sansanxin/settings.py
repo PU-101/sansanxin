@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'registration',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -39,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Thirdy-party Apps
+    'material',
+    # 'crispy_forms',
 
     # My Apps
     'apps.blog',
@@ -138,10 +141,17 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-# LOGIN URL
-LOGIN_URL = '/login/'  # if have'nt login
-LOGIN_REDIRECT_URL = '/index/'   # when login sucessfully, automativally redirect the site,default='/accounts/profile/'
+# CRISPY FORM
+# CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+# LOGIN URL
+# LOGIN_URL = '/login/'  # if have'nt login
+# LOGIN_REDIRECT_URL = '/'   # when login sucessfully, automativally redirect the site,default='/accounts/profile/'
+
+
+# REGISTRATION REDUX
+ACCOUNT_ACTIVATION_DAYS = 7  # One-week activation window; you may, of course, use a different value.
+REGISTRATION_AUTO_LOGIN = True  # Automatically log the user in.
 
 # CELERY 
 BROKER_URL = 'redis://localhost:6379' 
