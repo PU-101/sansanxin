@@ -41,7 +41,6 @@ INSTALLED_APPS = [
 
     # Thirdy-party Apps
     'material',
-    # 'crispy_forms',
 
     # My Apps
     'apps.blog',
@@ -76,6 +75,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                "django.core.context_processors.i18n",
             ],
         },
     },
@@ -131,15 +131,10 @@ from django.utils.translation import ugettext_lazy as _
 LANGUAGES = (
     ('en', _('English')),
     ('zh-hans', _('中文简体')),
-    ('zh-tw', _('中文繁體')),
 )
 
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
-)
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.core.context_processors.i18n",
 )
 
 

@@ -28,7 +28,7 @@ class Post(models.Model):
 
 	def clean(self):
 		pass
-
+		
 	def save(self, *args, **kwargs):
 		"""
 		若无标题，则取content第一句话作为title
@@ -39,6 +39,16 @@ class Post(models.Model):
 				self.title = first_sentence + '...'
 			else:
 				self.title = self.content
+		# """
+		# 防止出现负数
+		# """
+		# if self.views_num < 0:
+		# 	self.views_num = 0
+		# elif self.likes_num < 0:
+		# 	self.likes_num = 0
+		# elif self.comments_num < 0:
+		# 	self.comments_num = 0
+
 		super(Post, self).save(*args, **kwargs)
 
 	class Meta():

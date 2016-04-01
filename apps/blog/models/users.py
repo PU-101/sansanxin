@@ -29,6 +29,16 @@ class UserProfile(models.Model):
 			(today.month, today.day) < (self.birthday.month, self.birthday.day)
 			)
 
+	# def save(self, *args, **kwargs):
+	# 	if self.posts_num < 0:
+	# 		self.posts_num = 0
+	# 	elif self.follows_num < 0:
+	# 		self.follows_num = 0
+	# 	elif self.followers_num < 0:
+	# 		self.followers_num = 0
+
+	# 	super(UserProfile, self).save(*args, **kwargs)
+
 	class Meta():
 		ordering = ['created_at']
 
