@@ -3,10 +3,17 @@
 {% for post in all_posts %}
 <div id="{{ post.id }}">
   <div class="post-card card z-depth-2">
-	 <div class="card-image z-depth-2">
-	   <img src="{{ post.picture.url }}" width='100%'>
-	   <span class="card-title">{{ post.title }}</span>
-	 </div>
+	  {% if post.picture %}
+	  	<div class="card-image z-depth-2">
+		 	<img src="{{ post.picture.url }}" width='100%'>
+		   <span class="card-title">{{ post.title }}</span>
+		 </div>
+	  {% else %}
+	  	<div class="card-image z-depth-2">
+		   <span class="card-title" style="position:static;color:#9e9e9e">{{ post.title }}</span>
+		 </div>
+	  {% endif %}
+	 
 	 <div class="card-content">
 	   <p>{{ post.content }}</p>
 	 </div>
@@ -18,10 +25,10 @@
 	   </div>
 	   
       <a class="waves-effect waves-light btn indigo">
-        <i class="mdi-action-thumb-up left"></i>1223
+        <i class="mdi-action-thumb-up left"></i>{{ post.likes_num }}
       </a>
       <a class="comment-button waves-effect waves-light btn pink" data-post-id='{{ post.id }}'>
-        <i class="mdi-communication-textsms left"></i>234
+        <i class="mdi-communication-textsms left"></i>{{ post.comments_num }}
       </a>
 
 	 </div>
@@ -50,21 +57,3 @@
 
 {% endfor %}
 
-
-<ul class="pagination center-align">
-  <li class="{% if all_posts.has_previous %}waves-effect{% else %}disabled{% endif %}">
-    <a {% if all_posts.has_previous %} 
-          href="{% url 'pagination_page' all_posts.previous_page_number %}"
-        {% endif %}><i class="mdi-navigation-chevron-left"></i></a></li>
-
-  {% for p_num in all_posts.page_range %}
-    <li class="{% if p_num == all_posts.number %}active{% else %}waves-effect{% endif %}">
-      <a href="{% url 'pagination_page' p_num %}">{{ p_num }}</a>
-    </li>
-  {% endfor %}
-  
-  <li class="{% if all_posts.has_previous %}waves-effect{% else %}disabled{% endif %}">
-    <a {% if all_posts.has_next %} 
-          href="{% url 'pagination_page' all_posts.next_page_number %}"
-        {% endif %}><i class="mdi-navigation-chevron-right"></i></a></li>
-</ul>

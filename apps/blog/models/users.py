@@ -1,14 +1,7 @@
 import datetime
 from django.db import models
 from django.contrib.auth.models import User
-
-
-def user_directory_path(instance, filename):
-	return 'user_{0}/{1}'.format(instance.user.username, filename)
-
-
-def default_portrait():
-	return 'default/default_portrait.jpg'
+from .upload_path import user_directory_path, default_portrait
 
 
 # Create your models here.

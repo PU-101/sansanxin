@@ -1,0 +1,9 @@
+{% load blog_extras %}
+
+{% if user.is_authenticated %}
+	{% create_post_form %}
+{% endif %}
+
+{% include 'center/posts.html' %}
+
+{% include 'center/paginator.html' %}

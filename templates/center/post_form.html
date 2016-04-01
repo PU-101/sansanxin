@@ -1,0 +1,13 @@
+{% load material_form %}
+
+
+<div class="post-form">
+	<form class="z-depth-1" method="POST" action="/posts/post_postitem/" enctype="multipart/form-data">
+	{% csrf_token %}
+	    {% form form=post_form %}{% endform %}
+	    <div class="right-align">
+	    	<button type="submit" class="btn">Submit</button>
+	    </div>
+	</form>
+</div>
+

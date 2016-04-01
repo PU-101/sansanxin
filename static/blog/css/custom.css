@@ -68,7 +68,13 @@
     box-flex: 1;
 }
 
-/* CENTER DIV - POST*/
+
+/* CENTER DIV - POST-FORM */
+.post-form {
+  padding: 0 3em 2em 3em;
+}
+
+/* CENTER DIV - POST */
 .post-card {
     width: 100%;
     min-height: 0;

@@ -1,4 +1,6 @@
 from django import forms
+from django.contrib.auth.models import AnonymousUser
+from apps.blog.models import Post
 
 
 class CommentForm(forms.Form):
@@ -11,3 +13,17 @@ class CommentForm(forms.Form):
 		# else:
 		# 	a = 'qwe'
 		return a
+
+
+class PostForm(forms.ModelForm):
+	content = forms.CharField(widget=forms.Textarea)
+	
+	class Meta:
+		model = Post
+		fields = ('title', 'content', 'picture')
+
+	# def __init__(self, *args, **kwargs):
+	# 	islogin = kwargs.pop("user")
+	# 	super().__init__(*args, **kwargs)
+
+	# 	self.fields["user"] = forms.ChoiceField(choices=islogin)

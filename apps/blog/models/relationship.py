@@ -5,10 +5,11 @@ from . import MyPostManager
 from django.db.models.signals import post_save, post_delete
 from django.db.models import F
 
-"""
-Like&Star功能
-"""
+
 class LikeAndStar(models.Model):
+	"""
+	Like&Star功能
+	"""
 	by = models.ForeignKey(User)
 	to = models.ForeignKey(Post)
 
@@ -21,10 +22,11 @@ class Like(LikeAndStar):
 	def __str__(self):
 		return '{0}--LIKE--{1}'.format(self.by.username, self.to.content)
 
-"""
-Follow功能
-"""
+
 class Follow(models.Model):
+	"""
+	Follow功能
+	"""
 	SITU_CHOICES = (
 		('0', 'follow'),
 		('1', 'follow each other'),
@@ -39,31 +41,33 @@ class Follow(models.Model):
 	def __str__(self):
 		return '{0}--FOLLOW--{1}'.format(self.user1.username, self.user2.username)
 
+
 """
 －－－－－－SIGNALS－－－－－－－
 """
 
-"""
-在Like表保存后修改UserProfile中的Likes字段数目
-"""
-def add_like_or_cancle_like(delta):
+
+def add_or_cancle_like(delta):
+	"""
+	在Like表保存后修改UserProfile中的Likes字段数目
+	"""
 	def f(sender, instance, **kwargs):
 		to_post = instance.to
 		to_post.likes = F('likes') + delta
 		to_post.save()
 	return f
 
-add_like = add_like_or_cancle_like(1)
+add_like = add_or_cancle_like(1)
 post_save.connect(add_like, sender=Like)
-cancle_like = add_like_or_cancle_like(-1)
+cancle_like = add_or_cancle_like(-1)
 post_delete.connect(cancle_like, sender=Like)
 
-"""
-同上，修改Follow和Follower字段的数目
-"""
+
 def add_or_cancle_follow(delta):
+	"""
+	同上，修改Follow和Follower字段的数目
+	"""
 	def f(sender, instance, **kwargs):
-		print('---------------------')
 		u1 = instance.user1.userprofile
 		u2 = instance.user2.userprofile
 		u1.follows = F('follows') + delta

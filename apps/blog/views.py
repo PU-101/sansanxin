@@ -9,7 +9,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import UserProfile, Post, Follow, Comment
-from .forms import CommentForm
+from .forms import CommentForm, PostForm
 
 
 
@@ -72,7 +72,6 @@ def post_comment(request):
             comment_raw_content = form.cleaned_data['comment_field']
             pattern = re.compile(r'^(?:\s*回复\s*(.*?)\s*[:：]+)?\s*(.*?)$')
             comment_reply_to, comment_content = re.match(pattern, comment_raw_content).groups()
-            print(comment_reply_to, comment_content)
 
             try:
                 comment_reply_to = get_object_or_None(User, username=comment_reply_to)
@@ -81,5 +80,18 @@ def post_comment(request):
         
             c = Comment.objects.create(by=commented_by, to=comment_to, reply_to=comment_reply_to, content=comment_content)
 
-        return redirect('/')
+    return redirect('/')
 
+
+def post_postitem(request):
+    if request.method == 'POST':
+        post_form = PostForm(request.POST)
+
+        if post_form.is_valid():
+            form = post_form.save(commit=False)
+            form.user = get_user(request)
+            if 'picture' in request.FILES:
+                form.picture = request.FILES['picture']
+            form.save()
+
+    return redirect('/')
