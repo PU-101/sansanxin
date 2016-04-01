@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -126,6 +127,21 @@ USE_L10N = True
 
 USE_TZ = True
 
+from django.utils.translation import ugettext_lazy as _
+LANGUAGES = (
+    ('en', _('English')),
+    ('zh-hans', _('中文简体')),
+    ('zh-tw', _('中文繁體')),
+)
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.core.context_processors.i18n",
+)
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
@@ -146,7 +162,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # LOGIN URL
 # LOGIN_URL = '/login/'  # if have'nt login
-# LOGIN_REDIRECT_URL = '/'   # when login sucessfully, automativally redirect the site,default='/accounts/profile/'
+LOGIN_REDIRECT_URL = '/'   # when login sucessfully, automativally redirect the site,default='/accounts/profile/'
 
 
 # REGISTRATION REDUX

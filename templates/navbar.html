@@ -1,9 +1,11 @@
+{% load i18n %}
+
 <div class="navbar-fixed">
   <ul id="user_dropdown" class="dropdown-content">
     
     <li class="divider"></li>
-    <li><a href="#!">个人设置</a></li>
-    <li><a href="#!">登出</a></li>
+    <li><a href="#!">{% trans 'Profile' %}</a></li>
+    <li><a href="{% url 'auth_logout' %}">{% trans 'Log out' %}</a></li>
   </ul>
 
   <nav>
@@ -18,20 +20,20 @@
           </a>
         </li>
       {% else %}
-        <li><a href="badges">登入</a></li>
-        <li><a href="buttons">注册</a></li>
+        <li><a href="{% url 'auth_login' %}">{% trans 'Log in' %}</a></li>
+        <li><a href="{% url 'registration_register' %}">{% trans 'Register' %}</a></li>
       {% endif %}
-      <li><a href="footer">关于</a></li>
+      <li><a href="footer">{% trans 'About' %}</a></li>
     </ul>
     <ul class="side-nav" id="mobile-demo">
       {% if user.is_authenticated %}
-        <li><a href="#!">个人设置</a></li>
-        <li><a href="#!">登出</a></li>
+        <li><a href="#!">{% trans 'Profile' %}</a></li>
+        <li><a href="{% url 'auth_logout' %}">{% trans 'Log out' %}</a></li>
       {% else %}
-        <li><a href="badges">登入</a></li>
-        <li><a href="buttons">注册</a></li>
+        <li><a href="{% url 'auth_login' %}">{% trans 'Log in' %}</a></li>
+        <li><a href="{% url 'registration_register' %}">{% trans 'Register' %}</a></li>
       {% endif %}
-      <li><a href="footer">关于</a></li>
+      <li><a href="footer">{% trans 'About' %}</a></li>
     </ul>
     </div>
   </nav>

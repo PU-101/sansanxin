@@ -6,34 +6,26 @@
 
 {% block content %}
 
-<div class="row valign">
+<div class="row">
     <div class="col s12 m8 offset-m2 l4 offset-l4">
         <div class="card">
             <form method="POST">
             {% csrf_token %}
                 <div class="card-content">
-                    <span class="card-title grey-text text-darken-2">Login form</span>
-                    {% form %}
-                        {% part form.username prefix %}<i class="mdi-communication-email prefix"></i>{% endpart %}
-                        {% part form.password prefix %}<i class="mdi-action-lock prefix"></i>{% endpart %}
-                    {% endform %}
+                    <span class="card-title grey-text text-darken-2">{% trans 'Log in' %}</span>
+                    {% form form=form %}{% endform %}
                 </div>
                 
                 <div class="card-action">       
                     <div class="right-align">
-                        <button type="submit" value="{% trans 'Log in' %}" class="btn btn-primary btn-lg">登陆</button>
-                        <input type="hidden" name="next" value="{{ next }}" />
+                        <button type="submit" class="btn btn-primary btn-lg">{% trans 'Log in' %}</button>
                     </div> 
-                    <p>{% trans "忘记密码？" %} <a href="{% url 'auth_password_reset' %}">{% trans "重置" %}</a>.</p>
-                    <p>{% trans "非成员？" %} <a href="{% url 'registration_register' %}">{% trans "注册" %}</a>.</p>      
+                    <p>{% trans 'Forgot your password?' %} <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a></p>
+                    <p>{% trans "Not a member?" %} <a href="{% url 'registration_register' %}">{% trans "Register" %}</a></p>      
                 </div>
             </form>
         </div>
     </div>
-
-
-
-
 </div>
 
 

@@ -46,7 +46,7 @@ def index(request, current_page_num=1):
     user_follows = map(lambda x: x.user2, Follow.my_post_manager.get_raw_followers(u_login))
     all_posts = Post.my_post_manager.get_posts(u_login, user_follows).select_related('user')
     
-    context_dict['all_posts'] = myPaginatior(all_posts, 3, current_page_num)
+    context_dict['all_posts'] = myPaginatior(all_posts, 10, current_page_num)
 
     return render(request, 'index.html', context_dict)
 
