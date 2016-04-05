@@ -1,0 +1,18 @@
+{% load material_form %}
+
+
+<ul class="collapsible popout" data-collapsible="accordion">
+ <li>
+   <div class="collapsible-header"><i class="mdi-image-filter-drama"></i>分享你的新鲜事</div>
+   <div class="collapsible-body">
+        <form class="z-depth-1" method="POST" action="/posts/post_postitem/" enctype="multipart/form-data">
+        {% csrf_token %}
+            {% form form=post_form %}{% endform %}
+            <div class="right-align">
+                <button type="submit" class="btn">发布</button>
+            </div>
+        </form>
+   </div>
+ </li>
+</ul>
+

@@ -24,8 +24,8 @@ SECRET_KEY = 'c&90ur%bo&iyzugl%lz4@=w_ph7-v$l9p(w5#o0qk%p#n03!1m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
+TEMPLATE_DEBUG = False
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -114,6 +114,16 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# EMAIL
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_USE_SSL = True
+EMAIL_HOST = 'smtp.qq.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = '975373930@qq.com'
+EMAIL_HOST_PASSWORD = 'fknjrpjlbgdnbdia'
+DEFAULT_FROM_EMAIL = 'liukailin <975373930@qq.com>'
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
@@ -142,9 +152,8 @@ LOCALE_PATHS = (
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_PATH = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
-    STATIC_PATH,
+    os.path.join(BASE_DIR, 'static'),
 )
 
 # Media files

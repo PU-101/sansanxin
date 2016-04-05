@@ -13,7 +13,10 @@
             {% csrf_token %}
                 <div class="card-content">
                     <span class="card-title grey-text text-darken-2">{% trans 'Log in' %}</span>
-                    {% form form=form %}{% endform %}
+                    {% form form=form %}
+                        {% part form.username prefix %}<i class="mdi-action-account-box prefix"></i>{% endpart %}
+                        {% part form.password prefix %}<i class="mdi-action-lock-open prefix"></i>{% endpart %}
+                    {% endform %}
                 </div>
                 
                 <div class="card-action">       

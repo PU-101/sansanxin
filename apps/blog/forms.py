@@ -1,6 +1,8 @@
 from django import forms
-from django.contrib.auth.models import AnonymousUser
-from apps.blog.models import Post
+from django.contrib.auth.models import User
+from material import Layout, Row
+
+from apps.blog.models import Post, UserProfile
 
 
 class CommentForm(forms.Form):
@@ -27,3 +29,19 @@ class PostForm(forms.ModelForm):
 	# 	super().__init__(*args, **kwargs)
 
 	# 	self.fields["user"] = forms.ChoiceField(choices=islogin)
+
+
+class UserForm(forms.ModelForm):
+	class Meta():
+		model = User
+		fields = ('username', 'email')
+
+
+class UserProfileForm(forms.ModelForm):
+	layout = Layout(
+				Row('gender', 'birthday'),
+				'signature', 'portrait')
+
+	class Meta():
+		model = UserProfile
+		fields = ('gender', 'birthday', 'signature', 'portrait')

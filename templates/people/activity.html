@@ -1,0 +1,118 @@
+
+<ul class="collection with-header">
+    <li class="collection-header"><h4>最新动态</h4></li>
+    {% for activity in activities_list %}
+        <li class="collection-item">
+            {% if 'post' in activity.keys %}
+                {% if activity.post %}
+                    
+                    <span>发表了博文</span>
+                    <div>{{ activity.post.title }}</div>
+                    <span>{{ activity.created_at }}</span>
+                    
+                {% endif %}
+                
+            {% elif 'like' in activity.keys %}
+                {% if activity.like %}
+
+                    <span>赞了该条博文</span>
+                    <div>{{ activity.like.to.title }}</div>
+                    <span>{{ activity.created_at }}</span>
+
+                {% endif %}
+                
+            {% elif 'comment' in activity.keys %}
+                {% if activity.comment %}
+
+                    <span>评论了该博文</span>
+                    <div>{{ activity.comment.to.title }}</div>
+                    <span>{{ activity.created_at }}</span>
+
+                {% endif %}
+                
+            {% elif 'follow' in activity.keys %}
+                {% if activity.follow %}
+
+                    <span>关注了 </span>{{ activity.follow.user2.username }}
+                    <span>{{ activity.created_at }}</span>
+
+                {% endif %}
+                
+            {% elif 'follower' in activity.keys %}
+                {% if activity.follower %}
+
+                    {{ activity.follower.user1.username }}<span> 关注了你</span>
+                    <span>{{ activity.created_at }}</span>
+
+                {% endif %}
+                
+            {% endif %}
+        </li> 
+    {% endfor %}     
+</ul>
+
+
+<!--
+<table>
+    <thead>
+        <tr>
+          <th data-field="id">Name</th>
+        </tr>
+    </thead>
+
+    <tbody>
+       
+        {% for activity in activities_list %}
+           <tr>
+            {% if 'post' in activity.keys %}
+                {% if activity.post %}
+                    
+                    <td>发表了博文</td>
+                    <td>{{ activity.post.title }}</td>
+                    <td>{{ activity.created_at }}</td>
+                    
+                {% endif %}
+                
+            {% elif 'like' in activity.keys %}
+                {% if activity.like %}
+
+                    <td>赞了博文</td>
+                    <td>{{ activity.like.to.title }}</td>
+                    <td>{{ activity.created_at }}</td>
+
+                {% endif %}
+                
+            {% elif 'comment' in activity.keys %}
+                {% if activity.comment %}
+
+                    <td>评论了博文</td>
+                    <td>{{ activity.comment.to.title }}</td>
+                    <td>{{ activity.created_at }}</td>
+
+                {% endif %}
+                
+            {% elif 'follow' in activity.keys %}
+                {% if activity.follow %}
+
+                    <td>关注了 </td>
+                    <td>{{ activity.follow.user2.username }}</td>
+                    <td>{{ activity.created_at }}</td>
+
+                {% endif %}
+                
+            {% elif 'follower' in activity.keys %}
+                {% if activity.follower %}
+
+                    <td>{{ activity.follower.user1.username }}</td>
+                    <td> 关注了你</td>
+                    <td>{{ activity.created_at }}</td>
+
+                {% endif %}
+                
+            {% endif %}
+             </tr>
+        {% endfor %}     
+       
+    </tbody>
+</table>
+-->   

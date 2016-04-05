@@ -11,8 +11,8 @@ class UserProfile(models.Model):
 		('F', '女生'),
 		)
 	user = models.OneToOneField(User, primary_key=True)
-	gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default='F')
-	birthday = models.DateField(auto_now_add=False, auto_now=False)
+	gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default='M')
+	birthday = models.DateField(auto_now_add=False, auto_now=False, blank=True, null=True)
 	signature = models.CharField(max_length=40, default='什么都没留下')
 	portrait = models.ImageField(upload_to=user_directory_path, default=default_portrait())
 	updated_at = models.DateTimeField(auto_now=True, auto_now_add=False)

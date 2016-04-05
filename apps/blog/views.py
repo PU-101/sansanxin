@@ -8,9 +8,8 @@ from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .models import UserProfile, Post, Follow, Comment
-from .forms import CommentForm, PostForm
-
+from .models import UserProfile, Post, Follow, Comment, Like
+from .forms import CommentForm, PostForm, UserForm, UserProfileForm
 
 
 def get_object_or_None(model, **kwargs):
@@ -36,29 +35,34 @@ def myPaginatior(obj_list, per_page=10, current_page_num=1):
 
 @login_required
 def index(request, current_page_num=1):
+    """
+    Homepage
+    """
     current_page_num = int(current_page_num)
     context_dict = {}
 
     u_login = get_user(request)
-    # user_prof = get_object_or_404(UserProfile, user=u_login)
-    # context_dict['user_prof'] = user_prof
 
     user_follows = map(lambda x: x.user2, Follow.my_post_manager.get_raw_followers(u_login))
     all_posts = Post.my_post_manager.get_posts(u_login, user_follows).select_related('user')
     
     context_dict['all_posts'] = myPaginatior(all_posts, 10, current_page_num)
 
-    return render(request, 'index.html', context_dict)
+    context_dict['all_my_likes'] = [like.to.id for like in Like.objects.filter(by=u_login).select_related('to')]
+    context_dict['all_my_comments'] = [comment.to.id for comment in Comment.objects.filter(by=u_login).select_related('to')]
+    return render(request, 'index/index.html', context_dict)
 
 
 def get_comments(request):
+    context_dict = {}
     if request.method == 'GET':
         post_id = request.GET['post_id']
+        context_dict['post_id'] = post_id
         which_post = get_object_or_404(Post, id=int(post_id))
         comments_of_this_post = Comment.objects.filter(to=which_post).select_related('by', 'to__user', 'reply_to')
-        comments_of_this_post = myPaginatior(comments_of_this_post, 5, 1)
+        context_dict['comments_of_this_post'] = myPaginatior(comments_of_this_post, 5, 1)
 
-        return render(request, 'center/comments.html', {'comments_of_this_post': comments_of_this_post, 'post_id': post_id})
+        return render(request, 'index/center/comments.html', context_dict)
 
 
 def post_comment(request):
@@ -78,20 +82,69 @@ def post_comment(request):
             except User.DoesNotExist:
                 comment_reply_to = None
         
-            c = Comment.objects.create(by=commented_by, to=comment_to, reply_to=comment_reply_to, content=comment_content)
+            obj, created = Comment.objects.get_or_create(by=commented_by, to=comment_to, reply_to=comment_reply_to, content=comment_content)
 
-    return redirect('/')
+            return redirect('/')
+
+
+def delete_comment(request):
+    if request.method == 'GET':
+        comment_id = request.GET['comment_id']
+
+        if comment_id:
+            comment = get_object_or_None(Comment, id=comment_id)
+            comment.delete()
+        
+        return HttpResponse(None)
 
 
 def post_postitem(request):
     if request.method == 'POST':
-        post_form = PostForm(request.POST)
+        post_form = PostForm(request.POST, request.FILES)
 
         if post_form.is_valid():
             form = post_form.save(commit=False)
             form.user = get_user(request)
-            if 'picture' in request.FILES:
-                form.picture = request.FILES['picture']
+            # if 'picture' in request.FILES:
+            #     form.picture = request.FILES['picture']
             form.save()
 
-    return redirect('/')
+        return redirect('/')
+
+
+def like_post(request):
+    likes_num = 0
+    if request.method == 'GET':
+        post_id = request.GET['post_id']
+        user_id = request.GET['user_id']
+
+        if post_id and user_id:
+            post = get_object_or_None(Post, id=post_id)
+            user = get_object_or_None(User, id=user_id)
+
+            if post and user:
+                obj, created = Like.objects.get_or_create(by=user, to=post)
+                if not created:
+                    obj.delete()
+                likes_num = Post.objects.get(id=post_id).likes_num
+
+        return HttpResponse(likes_num)
+
+
+def profile(request):
+    context_dict = {}
+    u_login = get_user(request)
+    up_obj, created = UserProfile.objects.get_or_create(user=u_login)
+
+    user_form = UserForm(request.POST or None, instance=u_login)
+    userprof_form = UserProfileForm(request.POST or None, request.FILES or None, instance=up_obj)
+    context_dict['user_form'] = user_form
+    context_dict['userprof_form'] = userprof_form
+
+    if request.method == 'POST':
+        if user_form.is_valid() and userprof_form.is_valid():
+            user_form.save()
+            userprof_form.save()
+        return redirect('/my_page/')
+    return render(request, 'people/people.html', context_dict)
+

@@ -15,7 +15,7 @@ class Post(models.Model):
 
 	title = models.CharField(max_length=140, blank=True)
 	content = models.CharField(max_length=640)
-	picture = models.ImageField(upload_to=user_directory_path, default=default_portrait())
+	picture = models.ImageField(upload_to=user_directory_path, blank=True, null=True)
 	created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True, auto_now_add=False)
 
@@ -33,21 +33,12 @@ class Post(models.Model):
 		"""
 		若无标题，则取content第一句话作为title
 		"""
-		if not self.title and not self.content:
+		if not self.title and self.content:
 			first_sentence = re.split("[,，。.？?；;]", self.content, maxsplit=1)[0]
 			if first_sentence:
 				self.title = first_sentence + '...'
 			else:
 				self.title = self.content
-		# """
-		# 防止出现负数
-		# """
-		# if self.views_num < 0:
-		# 	self.views_num = 0
-		# elif self.likes_num < 0:
-		# 	self.likes_num = 0
-		# elif self.comments_num < 0:
-		# 	self.comments_num = 0
 
 		super(Post, self).save(*args, **kwargs)
 

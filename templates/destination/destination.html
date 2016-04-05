@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load blog_extras %}
+
+{% block title %}个人主页{% endblock %}
+
+{% block content %}
+
+<h3>{{ mdd }}</h3>
+<div class="divider"></div>
+
+<div class="row">
+    {% for item in cal_items %}
+        <div class="col s12 m6 l4">
+            <div class="grid">
+                <a href="{{ item.url }}" target="_blank">
+                    <figure class="destination-card">
+                        <img src="{{ item.img_src }}">
+                        <figcaption class="valign-wrapper">
+                            <p class="valign " href="{{ item.url }}">{{ item.title }}</p>
+                        </figcaption>     
+                    </figure>
+                </a>   
+            </div>
+        </div>
+    {% endfor %}   
+</div>
+
+{% endblock %}
