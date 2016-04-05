@@ -148,3 +148,9 @@ def profile(request):
         return redirect('/my_page/')
     return render(request, 'people/people.html', context_dict)
 
+
+def set_portrait(request):
+    if request.method == 'POST':
+        img = request.POST['image_data']
+        print(img)
+    return HttpResponse('haha')

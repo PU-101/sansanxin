@@ -7,10 +7,11 @@
        <img src="{% static 'blog/images/background.jpg' %}">
      </div>
      <div class="card-protrait_image center-align">
-      <a href="{% url 'my_page' %}">
+      <a data-target="portrait" class="modal-trigger">
         <img class="circle z-depth-2" src="{% static 'blog/images/veronika.jpg' %}">
       </a>
      </div>
+     {% include 'index/left/portrait.html' %}
      <div class="card-content">
       <a class="username">{{ user_prof.user.username }}</a>
       <div class="signature mdl-color-text--grey-700">{{ user_prof.signature }}</div>

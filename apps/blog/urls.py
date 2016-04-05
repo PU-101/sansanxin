@@ -15,4 +15,6 @@ urlpatterns = [
 
     url(r'^my_page/$', views.profile, name='my_page'),
 
+    url(r'^portrait/set_portrait/$', views.set_portrait, name='set_portrait'),
+
 ]

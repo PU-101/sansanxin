@@ -19,6 +19,29 @@ $(document).ready(function(){
       fx: 'roxy'
     });
 
+   $('.modal-trigger').leanModal();
+
+
+   /**
+    *图像裁剪
+    */
+   $('.image-editor').cropit();
+
+    $('#portrait.modal form').submit(function() {
+      // Move cropped image data to hidden input
+      var imageData = $('.image-editor').cropit('export');
+      $('.hidden-image-data').val(imageData);
+
+      // Print HTTP request params
+      var imageData_seri = $(this).serialize();
+
+      $.get('/portrait/set_portrait/',
+        {image_data: imageData_seri},
+        function(data){
+          alert(data)
+        });
+    });
+
 
   /**
    *评论按钮
