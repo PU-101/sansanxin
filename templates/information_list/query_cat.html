@@ -1,0 +1,68 @@
+{% extends "index/homepage.html" %}
+
+{% load blog_extras %}
+
+
+{% block content %}
+
+<div class="row">
+
+  <div class="col s12 m12 l3">
+    <div class="row">
+      <div class="col s12">
+
+        {% get_userprofile_info user user_of_this_page %}
+
+      </div>
+      <div class="col s12 hide-on-med-and-down">
+        
+        {% include 'index/left/about.html' %}
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col s12 m12 l9">
+      
+    <div class="row">
+    	{% for item in query_items  %}
+	  			{% if cat == 'posts' %}
+		  			<div class="col s4 m6 l3">
+				       <div class="card">
+				         <div class="list card-image">
+				         	{% if item.picture %}
+				         		<img src="{{ item.picture.url }}">
+				         	{% endif %}
+				           <span class="card-title">{{ item.title }}</span>
+				         </div>
+				         <div class="card-content">
+				           <p>{{ item.content|truncatewords:10}}</p>
+				         </div>
+				       </div>
+			       </div>
+	  			{% else %}
+		  			<div class="col s4 m3 l2">
+		  				<div class="card small">
+						    <div class="card-image waves-effect waves-block waves-light">
+						       <img class="activator" src="{{ item.userprofile.portrait.url }}">
+						     </div>
+						     <div class="card-content">
+						       <span class="card-title activator grey-text text-darken-4">{{ item }}<i
+						       class="mdi-navigation-more-vert right"></i></span>
+						     </div>
+						     <div class="card-reveal">
+						       <span class="card-title grey-text text-darken-4">{{ item.username }}<i class="mdi-navigation-close right"></i></span>
+						       <p>{{ item.userprofile.signature }}</p>
+						    </div>
+						</div>
+					</div>
+	  			{% endif %}
+	  	{% endfor %}
+	</div>
+      
+  </div>
+
+</div>
+
+{% endblock %}

@@ -11,9 +11,9 @@ register = template.Library()
 
 
 @register.inclusion_tag('index/left/profile.html')
-def get_userprofile_info(user_login):
-	user_prof = get_object_or_None(UserProfile, user=user_login)
-	return {'user_prof': user_prof}
+def get_userprofile_info(u_login, user_of_this_page):
+	user_prof = get_object_or_None(UserProfile, user=user_of_this_page)
+	return {'user': u_login, 'user_of_this_page': user_of_this_page, 'user_prof': user_prof}
 
 
 @register.inclusion_tag('index/right/calendars.html')

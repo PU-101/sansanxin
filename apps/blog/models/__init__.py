@@ -23,7 +23,7 @@ def create_userprofile(sender, instance, created, **kwargs):
     """
     if not created:
         return
-    UserProfile.objects.create(user=instance)
+    UserProfile.objects.get_or_create(user=instance)
 
 
 @receiver(post_save, sender=Post)

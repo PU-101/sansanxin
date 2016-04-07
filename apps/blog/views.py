@@ -1,4 +1,6 @@
-import re
+import re, base64
+
+from django.core.files.base import ContentFile
 from django import forms
 from django.contrib.auth import authenticate, login, logout, get_user
 from django.contrib.auth.decorators import login_required
@@ -34,7 +36,12 @@ def myPaginatior(obj_list, per_page=10, current_page_num=1):
 
 
 @login_required
-def index(request, current_page_num=1):
+def index(request):
+    u_login = get_user(request)
+    return redirect('{}/'.format(u_login.username))
+
+
+def homepage(request, user_name=None, current_page_num=1):
     """
     Homepage
     """
@@ -43,14 +50,39 @@ def index(request, current_page_num=1):
 
     u_login = get_user(request)
 
-    user_follows = map(lambda x: x.user2, Follow.my_post_manager.get_raw_followers(u_login))
-    all_posts = Post.my_post_manager.get_posts(u_login, user_follows).select_related('user')
+    if user_name is None:
+        user_of_this_page = u_login
+    else:
+        user_of_this_page = get_object_or_404(User, username=user_name)
+    context_dict['user_of_this_page'] = user_of_this_page
+
+    user_followers = map(lambda x: x.user1, Follow.my_post_manager.get_raw_followers(user_of_this_page))
+    all_posts = Post.my_post_manager.get_posts(user_of_this_page, user_followers).select_related('user__userprofile')
     
-    context_dict['all_posts'] = myPaginatior(all_posts, 10, current_page_num)
+    context_dict['all_posts'] = myPaginatior(all_posts, 5, current_page_num)
 
     context_dict['all_my_likes'] = [like.to.id for like in Like.objects.filter(by=u_login).select_related('to')]
     context_dict['all_my_comments'] = [comment.to.id for comment in Comment.objects.filter(by=u_login).select_related('to')]
-    return render(request, 'index/index.html', context_dict)
+    return render(request, 'index/homepage.html', context_dict)
+
+
+def query_cat(request, user_name=None):
+    context_dict = {}
+    user_of_this_page = get_object_or_404(User, username=user_name)
+    context_dict['user_of_this_page'] = user_of_this_page
+
+    def query(cat):
+        return {
+            'posts': Post.objects.filter(user=user_of_this_page),
+            'followers': map(lambda x: x.user1, Follow.my_post_manager.get_raw_followers(user_of_this_page)),
+            'follows': map(lambda x: x.user2, Follow.my_post_manager.get_raw_follows(user_of_this_page))
+        }.get(cat, redirect('/'))
+
+    if request.method == 'GET':
+        cat = request.GET['cat']
+        context_dict['cat'] = cat
+        context_dict['query_items'] = query(cat)
+        return render(request, 'information_list/query_cat.html', context_dict)
 
 
 def get_comments(request):
@@ -82,7 +114,7 @@ def post_comment(request):
             except User.DoesNotExist:
                 comment_reply_to = None
         
-            obj, created = Comment.objects.get_or_create(by=commented_by, to=comment_to, reply_to=comment_reply_to, content=comment_content)
+            Comment.objects.get_or_create(by=commented_by, to=comment_to, reply_to=comment_reply_to, content=comment_content)
 
             return redirect('/')
 
@@ -131,7 +163,8 @@ def like_post(request):
         return HttpResponse(likes_num)
 
 
-def profile(request):
+@login_required
+def my_page(request, user_name=None):
     context_dict = {}
     u_login = get_user(request)
     up_obj, created = UserProfile.objects.get_or_create(user=u_login)
@@ -145,12 +178,15 @@ def profile(request):
         if user_form.is_valid() and userprof_form.is_valid():
             user_form.save()
             userprof_form.save()
-        return redirect('/my_page/')
+        return redirect('{}/my_page/'.format(u_login.username))
     return render(request, 'people/people.html', context_dict)
 
 
 def set_portrait(request):
+    u_login = get_user(request)
     if request.method == 'POST':
-        img = request.POST['image_data']
-        print(img)
-    return HttpResponse('haha')
+        raw_img = request.POST['image_data'].partition('base64,')[2]
+        up_obj, created = UserProfile.objects.get_or_create(user=u_login)
+        img = base64.b64decode(raw_img)
+        up_obj.portrait.save('user.jpg', ContentFile(img), save=True)
+    return HttpResponse(up_obj.portrait.url)

@@ -1,6 +1,6 @@
 {% load blog_extras %}
 
-{% if user.is_authenticated %}
+{% if user.is_authenticated and user == user_of_this_page %}
 	{% create_post_form %}
 {% endif %}
 

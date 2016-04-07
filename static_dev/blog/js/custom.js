@@ -25,22 +25,18 @@ $(document).ready(function(){
    /**
     *图像裁剪
     */
-   $('.image-editor').cropit();
+  $('.image-editor').cropit();
 
-    $('#portrait.modal form').submit(function() {
-      // Move cropped image data to hidden input
-      var imageData = $('.image-editor').cropit('export');
-      $('.hidden-image-data').val(imageData);
+  $('#portrait .modal-footer .btn').click(function(){
+    // Move cropped image data to hidden input
+    var imageData = $('.image-editor').cropit('export');
 
-      // Print HTTP request params
-      var imageData_seri = $(this).serialize();
-
-      $.get('/portrait/set_portrait/',
-        {image_data: imageData_seri},
-        function(data){
-          alert(data)
-        });
-    });
+    $.post('/portrait/set_portrait/',
+      {image_data: imageData},
+      function(data){
+          $('.profile-card .card-protrait_image img').attr('src', data);
+      });
+  });
 
 
   /**

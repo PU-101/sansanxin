@@ -2,15 +2,15 @@
 
 <div class="navbar-fixed">
   <ul id="user_dropdown" class="dropdown-content">
-    
-    <li class="divider"></li>
-    <li><a href="{% url 'my_page' %}">{% trans 'My page' %}</a></li>
-    <li><a href="{% url 'auth_logout' %}">{% trans 'Log out' %}</a></li>
+    {% if user.is_authenticated %}
+      <li><a href="{% url 'my_page' user.username %}">{% trans 'My page' %}</a></li>
+      <li><a href="{% url 'auth_logout' %}">{% trans 'Log out' %}</a></li>
+    {% endif %}
   </ul>
 
   <nav>
     <div class="nav-wrapper indigo">
-    <a href="{% url 'homepage' %}" class="brand-logo">起个什么名字好呢</a>
+    <a href="{% url 'index' %}" class="brand-logo">起个什么名字好呢</a>
     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
     <ul class="right hide-on-med-and-down">
       {% if user.is_authenticated %}
@@ -27,7 +27,7 @@
     </ul>
     <ul class="side-nav" id="mobile-demo">
       {% if user.is_authenticated %}
-        <li><a href="{% url 'my_page' %}">{% trans 'My page' %}</a></li>
+        <li><a href="{% url 'my_page' user.username %}">{% trans 'My page' %}</a></li>
         <li><a href="{% url 'auth_logout' %}">{% trans 'Log out' %}</a></li>
       {% else %}
         <li><a href="{% url 'auth_login' %}">{% trans 'Log in' %}</a></li>

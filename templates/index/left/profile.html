@@ -7,8 +7,12 @@
        <img src="{% static 'blog/images/background.jpg' %}">
      </div>
      <div class="card-protrait_image center-align">
-      <a data-target="portrait" class="modal-trigger">
-        <img class="circle z-depth-2" src="{% static 'blog/images/veronika.jpg' %}">
+     {% if user.is_authenticated and user == user_of_this_page %}
+       <a data-target="portrait" class="modal-trigger">
+      {% else %}
+        <a>
+     {% endif %}
+        <img class="circle z-depth-2" src="{{ user_prof.portrait.url }}">
       </a>
      </div>
      {% include 'index/left/portrait.html' %}
@@ -18,13 +22,13 @@
      </div>
      <div class="card-extra_content">
         <div class="posts">
-          <small><strong class="num">{{ user_prof.posts_num }}</strong> 博文</small>
+          <small><a class="num" href="{% url 'query_cat' user_prof.user.username %}?cat=posts">{{ user_prof.posts_num }} 博文</a></small>
         </div>
         <div class="follows">
-          <small><strong class="num">{{ user_prof.follows_num}}</strong> 关注者</small>
+          <small><a class="num" href="{% url 'query_cat' user_prof.user.username %}?cat=follows">{{ user_prof.follows_num}} 关注者</a></small>
         </div>
         <div class="followers">
-          <small><strong class="num">{{ user_prof.followers_num}}</strong> 粉丝</small>
+          <small><a class="num" href="{% url 'query_cat' user_prof.user.username %}?cat=followers">{{ user_prof.followers_num}} 粉丝</a></small>
         </div>
      </div>
    </div>

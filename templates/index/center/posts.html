@@ -20,7 +20,9 @@
 		 </div>
 
 		 <div class="card-action z-depth-1">
-		   <img class="avatar circle responsive-img" src="{% static "blog/images/veronika.jpg" %}" alt="">
+		 	<a href="{% url 'homepage' post.user.username %}">
+		 		<img class="avatar circle responsive-img" src="{{ post.user.userprofile.portrait.url }}" alt="">
+		 	</a>
 		   <div href="" class="author">
 		     <strong>{{ post.user.username }}</strong>
 		     <span>{{ post.created_at|timesince }} 前发布</span>
