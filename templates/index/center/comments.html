@@ -11,7 +11,7 @@
         {% endif %}
       </div>
       <div class="comment__actions">
-        <a class="cancel-button waves-effect waves-teal btn-flat" data-comment-id='{{ comment.id }}'>撤销</a>
+        <a class="cancel-button waves-effect waves-teal btn-flat" data-comment-id='{{ comment.id }}' data-post-id='{{ post_id }}'>撤销</a>
         <a class="reply-button waves-effect waves-teal btn-flat" data-author-name='{{ comment.by.username }}' data-post-id='{{ post_id }}'>回复</a>
       </div>
       <div style="clear: both"></div>

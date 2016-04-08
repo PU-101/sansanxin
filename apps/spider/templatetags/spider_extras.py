@@ -10,7 +10,8 @@ register = template.Library()
 
 @register.inclusion_tag('index/right/calendars.html')
 def get_calendar_list():
-    cals = Calendar.objects.order_by('?')[:10]
+    # cals = Calendar.objects.order_by('?')[:10]
+    cals = Calendar.objects.order_by('-created_at')[:10]
     return {'cals': cals}
 
 

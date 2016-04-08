@@ -1,8 +1,8 @@
+from django.db.models import Q
 from django import template 
 from operator import itemgetter
-
+from django.contrib.auth.models import User
 from apps.blog.views import get_object_or_None
-
 from apps.blog.models import UserProfile, Post, Like, Follow, Comment
 from apps.spider.models import Calendar
 from apps.blog.forms import PostForm
@@ -53,3 +53,11 @@ def get_activities_list(user_login):
     
     activities_list = sorted(activities_list, key=itemgetter('created_at'), reverse=True)
     return {'activities_list': activities_list}
+
+
+@register.inclusion_tag('index/left/about.html')
+def get_interested_people(u_login):
+    follows_list = Follow.my_post_manager.get_follows(u_login)
+    follows_name = (follow.username for follow in follows_list)
+    interested_people = User.objects.exclude(Q(username=u_login.username) | Q(username__in=follows_name)).select_related('userprofile')
+    return {'u_login': u_login, 'interested_people': interested_people}

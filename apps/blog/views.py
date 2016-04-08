@@ -49,6 +49,7 @@ def homepage(request, user_name=None, current_page_num=1):
     context_dict = {}
 
     u_login = get_user(request)
+    context_dict['u_login'] = u_login
 
     if user_name is None:
         user_of_this_page = u_login
@@ -56,13 +57,14 @@ def homepage(request, user_name=None, current_page_num=1):
         user_of_this_page = get_object_or_404(User, username=user_name)
     context_dict['user_of_this_page'] = user_of_this_page
 
-    user_followers = map(lambda x: x.user1, Follow.my_post_manager.get_raw_followers(user_of_this_page))
+    user_followers = Follow.my_post_manager.get_followers(user_of_this_page)
     all_posts = Post.my_post_manager.get_posts(user_of_this_page, user_followers).select_related('user__userprofile')
     
     context_dict['all_posts'] = myPaginatior(all_posts, 5, current_page_num)
 
-    context_dict['all_my_likes'] = [like.to.id for like in Like.objects.filter(by=u_login).select_related('to')]
-    context_dict['all_my_comments'] = [comment.to.id for comment in Comment.objects.filter(by=u_login).select_related('to')]
+    if u_login.is_authenticated:
+        context_dict['all_my_likes'] = [like.to.id for like in Like.objects.filter(by=u_login).select_related('to')]
+        context_dict['all_my_comments'] = [comment.to.id for comment in Comment.objects.filter(by=u_login).select_related('to')]
     return render(request, 'index/homepage.html', context_dict)
 
 
@@ -74,8 +76,8 @@ def query_cat(request, user_name=None):
     def query(cat):
         return {
             'posts': Post.objects.filter(user=user_of_this_page),
-            'followers': map(lambda x: x.user1, Follow.my_post_manager.get_raw_followers(user_of_this_page)),
-            'follows': map(lambda x: x.user2, Follow.my_post_manager.get_raw_follows(user_of_this_page))
+            'followers': Follow.my_post_manager.get_followers(user_of_this_page),
+            'follows': Follow.my_post_manager.get_follows(user_of_this_page)
         }.get(cat, redirect('/'))
 
     if request.method == 'GET':
@@ -120,14 +122,19 @@ def post_comment(request):
 
 
 def delete_comment(request):
+    comments_num = 0
     if request.method == 'GET':
         comment_id = request.GET['comment_id']
+        post_id = request.GET['post_id']
 
         if comment_id:
             comment = get_object_or_None(Comment, id=comment_id)
             comment.delete()
+
+            post = get_object_or_None(Post, id=post_id)
+            comments_num = Comment.objects.filter(to=post).count()
         
-        return HttpResponse(None)
+        return HttpResponse(comments_num)
 
 
 def post_postitem(request):
@@ -163,6 +170,28 @@ def like_post(request):
         return HttpResponse(likes_num)
 
 
+def follow_sb(request):
+    # resp = '关注'
+    # print('-------------------')
+
+    # if request.methos == 'GET':
+    #     user1_id = request.GET['user1_id']
+    #     user2_id = request.GET['user2_id']
+
+    #     if user1_id and user2_id:
+    #         user1 = get_object_or_None(User, id=user1_id)
+    #         user2 = get_object_or_None(User, id=user2_id)
+
+    #         if user1 and user2:
+    #             obj, created = Follow.objects.get_or_create(user1=user1, user2=user2)
+    #             if not created:
+    #                 obj.delate()
+    #             else:
+    #                 resp = '已关注'
+    #     return HttpResponse(resp)
+    return redirect('/')
+
+
 @login_required
 def my_page(request, user_name=None):
     context_dict = {}
@@ -178,7 +207,7 @@ def my_page(request, user_name=None):
         if user_form.is_valid() and userprof_form.is_valid():
             user_form.save()
             userprof_form.save()
-        return redirect('{}/my_page/'.format(u_login.username))
+        return redirect('/{}/my_page/'.format(u_login.username))
     return render(request, 'people/people.html', context_dict)
 
 

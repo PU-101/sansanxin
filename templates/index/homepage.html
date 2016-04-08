@@ -15,8 +15,9 @@
 
       </div>
       <div class="col s12 hide-on-med-and-down">
-        
-        {% include 'index/left/about.html' %}
+        {% if user.is_authenticated %}
+          {% get_interested_people u_login %}
+        {% endif %}
 
       </div>
     </div>

@@ -28,35 +28,33 @@
     <div class="row">
     	{% for item in query_items  %}
 	  			{% if cat == 'posts' %}
-		  			<div class="col s4 m6 l3">
-				       <div class="card">
-				         <div class="list card-image">
-				         	{% if item.picture %}
-				         		<img src="{{ item.picture.url }}">
-				         	{% endif %}
-				           <span class="card-title">{{ item.title }}</span>
-				         </div>
-				         <div class="card-content">
-				           <p>{{ item.content|truncatewords:10}}</p>
-				         </div>
-				       </div>
-			       </div>
-	  			{% else %}
-		  			<div class="col s4 m3 l2">
-		  				<div class="card small">
-						    <div class="card-image waves-effect waves-block waves-light">
-						       <img class="activator" src="{{ item.userprofile.portrait.url }}">
+	  				<div class="col s4 m6 l3">
+				        <div class="card">
+						    <div class="list card-image waves-effect waves-block waves-light">
+						    	{% if item.picture %}
+						       		<img class="activator" src="{{ item.picture.url }}">
+						       	{% endif %}
 						     </div>
 						     <div class="card-content">
-						       <span class="card-title activator grey-text text-darken-4">{{ item }}<i
+						       <span class="card-title activator grey-text text-darken-4">{{ item.title|truncatechars:10 }}<i
 						       class="mdi-navigation-more-vert right"></i></span>
 						     </div>
 						     <div class="card-reveal">
-						       <span class="card-title grey-text text-darken-4">{{ item.username }}<i class="mdi-navigation-close right"></i></span>
-						       <p>{{ item.userprofile.signature }}</p>
+						       <span class="card-title grey-text text-darken-4">{{ item.content|truncatechars:30 }}<i class="mdi-navigation-close right"></i></span>
 						    </div>
 						</div>
 					</div>
+	  			{% else %}
+		  			<div class="col s6 m3 l2">
+				       <div class="card">
+				       		<div class="card-image">
+					           <img src="{{ item.userprofile.portrait.url }}">
+					         </div>
+				         <div class="card-content">
+				           <a href="{% url 'homepage' item.username %}">{{ item.username }}</a>
+				         </div>
+				       </div>
+			       </div>
 	  			{% endif %}
 	  	{% endfor %}
 	</div>

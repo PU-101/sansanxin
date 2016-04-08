@@ -28,26 +28,35 @@
 		     <span>{{ post.created_at|timesince }} 前发布</span>
 		   </div>
 		   
+			{% if user.is_authenticated %}
+				{% if post.id in all_my_likes %}
+					<a class="like-button waves-effect waves-light btn" data-post-id='{{ post.id }}' data-user-id='{{ user.id }}'>
+						<i class="mdi-action-thumb-up left"></i><span>{{ post.likes_num }}</span>
+					</a>
+				{% else %}
+					<a class="like-button waves-effect waves-light btn grey" data-post-id='{{ post.id }}' data-user-id='{{ user.id }}'>
+						<i class="mdi-action-thumb-up left"></i><span>{{ post.likes_num }}</span>
+					</a>
+				{% endif %}
 
-			{% if post.id in all_my_likes %}
-				<a class="like-button waves-effect waves-light btn" data-post-id='{{ post.id }}' data-user-id='{{ user.id }}'>
+				{% if post.id in all_my_comments %}
+					<a class="comment-button waves-effect waves-light btn pink" data-post-id='{{ post.id }}'>
+						<i class="mdi-communication-textsms left"></i><span>{{ post.comments_num }}</span>
+					</a>
+				{% else %}
+					<a class="comment-button waves-effect waves-light btn grey" data-post-id='{{ post.id }}'>
+						<i class="mdi-communication-textsms left"></i><span>{{ post.comments_num }}</span>
+					</a>
+				{% endif %}
+			{% else %}
+				<a class="like-button btn disabled" data-post-id='{{ post.id }}' data-user-id='{{ user.id }}'>
 					<i class="mdi-action-thumb-up left"></i><span>{{ post.likes_num }}</span>
 				</a>
-			{% else %}
-				<a class="like-button waves-effect waves-light btn grey" data-post-id='{{ post.id }}' data-user-id='{{ user.id }}'>
+				<a class="like-button btn disabled" data-post-id='{{ post.id }}' data-user-id='{{ user.id }}'>
 					<i class="mdi-action-thumb-up left"></i><span>{{ post.likes_num }}</span>
 				</a>
 			{% endif %}
-
-			{% if post.id in all_my_comments %}
-				<a class="comment-button waves-effect waves-light btn pink" data-post-id='{{ post.id }}'>
-					<i class="mdi-communication-textsms left"></i>{{ post.comments_num }}
-				</a>
-			{% else %}
-				<a class="comment-button waves-effect waves-light btn grey" data-post-id='{{ post.id }}'>
-					<i class="mdi-communication-textsms left"></i>{{ post.comments_num }}
-				</a>
-			{% endif %}
+			
 
 			
 			

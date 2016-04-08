@@ -80,12 +80,20 @@ $(document).ready(function(){
 
   $('.comments-content').on('click','.cancel-button', function(){
     var comment_id = $(this).attr('data-comment-id');
+    var post_id = $(this).attr('data-post-id');
     var this_comment_div = $(this).parent().parent().parent()
 
     $.get('/comments/delete_comment/',
-      {comment_id: comment_id},
+      {comment_id: comment_id,
+        post_id: post_id},
       function(data){
-          $(this_comment_div).fadeOut()
+          $(this_comment_div).fadeOut();
+          var comment_button = $("a[class*='comment-button'][data-post-id="+post_id+"]");
+          comment_button.find('span').text(data);
+          if (data==0) {
+            comment_button.removeClass('pink');
+            comment_button.addClass('grey');
+          };
       });
     
   });
@@ -100,8 +108,10 @@ $(document).ready(function(){
       var user_id = $(this).attr('data-user-id');
 
       $.get('/posts/like_post/',
+
         {post_id: post_id,
           user_id: user_id},
+
         function(data){
           $(like_button).find('span').html(data);
     
@@ -109,5 +119,24 @@ $(document).ready(function(){
         });
    });
 
+
+   /**
+   *关注按钮
+   */
+   $('.about-card .card-content .collection-item .secondary-content').click(function(){
+    var follow_button = $(this)
+    var user1_id = $(this).attr('data-user-id');
+    var user2_id = $(this).attr('data-ip-id');
+
+      $.get('/follow/',
+
+        {user1_id: user1_id,
+          user2_id: user2_id},
+
+        function(data){
+          $(follow_button).text(data)
+          $(follow_button).toggleClass("grey");
+        });
+   });
 
 });

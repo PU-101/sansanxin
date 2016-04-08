@@ -15,7 +15,7 @@
 }
 
 
-/* LEFT DIV */
+/* LEFT DIV - PROFILE */
 .profile-card{
   border-radius:0.3em;
 }
@@ -72,6 +72,7 @@
     -moz-box-flex: 1;
     box-flex: 1;
 }
+
 
 
 /* CENTER DIV - POST-FORM */
@@ -301,6 +302,10 @@ figure.effect-roxy p {
   overflow: hidden;
 }
 
-.list.card-image {
+.list.card-image img {
   width: 100%;
+}
+
+.row .destination-card.col.m6 {
+  height: 256px;
 }
