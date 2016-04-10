@@ -2,7 +2,7 @@
 
 {% load staticfiles %}
 
-<html lang="en">
+<html lang="zh-cn">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,6 +24,11 @@
           data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
         });
     </script>
+
+    
+        {% block login-register-page %}
+        {% endblock %}
+    
  
   </head>
 

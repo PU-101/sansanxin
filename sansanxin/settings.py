@@ -129,7 +129,7 @@ DEFAULT_FROM_EMAIL = 'liukailin <975373930@qq.com>'
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
 TIME_ZONE = 'Asia/Shanghai'
 
@@ -141,7 +141,6 @@ USE_TZ = True
 
 from django.utils.translation import ugettext_lazy as _
 LANGUAGES = (
-    ('en', _('English')),
     ('zh-hans', _('中文简体')),
 )
 

@@ -1,5 +1,8 @@
 $(document).ready(function(){
 
+  $(".body-container").height($(window).height());
+
+
   /**
    *Dropdown
    */
@@ -123,7 +126,7 @@ $(document).ready(function(){
    /**
    *关注按钮
    */
-   $('.about-card .card-content .collection-item .secondary-content').click(function(){
+   $('.about-card .card-content .collection-item .btn').click(function(){
     var follow_button = $(this)
     var user1_id = $(this).attr('data-user-id');
     var user2_id = $(this).attr('data-ip-id');

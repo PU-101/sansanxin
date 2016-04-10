@@ -1,8 +1,25 @@
 import re
+from PIL import Image
 from django.db import models
 from django.contrib.auth.models import User
 from . import MyPostManager
-from .upload_path import user_directory_path, default_portrait
+from .upload_path import user_directory_path
+
+
+def create_thumbnail(img_path, size=1024):
+	"""
+	生成缩略图
+	"""
+	img = Image.open(img_path)
+	if img.mode not in ('L', 'RGB'):
+		img = img.convert('RGB')
+	
+	width, height = img.size
+	if width > size:
+		delta = width/size
+		height = height/delta
+		img.thumbnail((size, height))
+	return img
 
 
 class Post(models.Model):
@@ -31,8 +48,11 @@ class Post(models.Model):
 		
 	def save(self, *args, **kwargs):
 		"""
-		若无标题，则取content第一句话作为title
+		若无标题，则取content第一句话作为title;
+		生成缩略图；
 		"""
+		super(Post, self).save(*args, **kwargs)
+
 		if not self.title and self.content:
 			first_sentence = re.split("[,，。.？?；;]", self.content, maxsplit=1)[0]
 			if first_sentence:
@@ -40,8 +60,13 @@ class Post(models.Model):
 			else:
 				self.title = self.content
 
-		super(Post, self).save(*args, **kwargs)
-
+		if self.picture is not None:
+			picture_path = self.picture.path
+			img_buf = create_thumbnail(picture_path)
+			img_buf.save(picture_path)
+		
+		# super(Post, self).save(*args, **kwargs)
+		
 	class Meta():
 		ordering = ['-created_at']
 

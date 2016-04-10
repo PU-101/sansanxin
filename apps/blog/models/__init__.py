@@ -1,3 +1,5 @@
+import os
+
 from .managers import MyPostManager
 from .posts import Post
 from .users import UserProfile
@@ -93,3 +95,7 @@ def add_follow(sender, instance, created, **kwargs):
 def cancle_follow(sender, instance, **kwargs):
     count_follows(instance)
 
+
+@receiver(post_delete, sender=Post)
+def delete_post(sender, instance, **kwargs):
+    os.remove(instance.picture.path)

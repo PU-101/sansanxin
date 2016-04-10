@@ -16,7 +16,9 @@
       </div>
       <div class="col s12 hide-on-med-and-down">
         
-        {% include 'index/left/about.html' %}
+        {% if user.is_authenticated %}
+          {% get_interested_people u_login %}
+        {% endif %}
 
       </div>
     </div>
@@ -36,11 +38,12 @@
 						       	{% endif %}
 						     </div>
 						     <div class="card-content">
-						       <span class="card-title activator grey-text text-darken-4">{{ item.title|truncatechars:10 }}<i
+						       <span class="activator grey-text text-darken-4">{{ item.title|truncatechars:10 }}<i
 						       class="mdi-navigation-more-vert right"></i></span>
 						     </div>
 						     <div class="card-reveal">
-						       <span class="card-title grey-text text-darken-4">{{ item.content|truncatechars:30 }}<i class="mdi-navigation-close right"></i></span>
+						       <span class="card-title grey-text text-darken-4"><i class="mdi-navigation-close right"></i></span>
+                               <p>{{ item.content|truncatechars:30 }}</p>
 						    </div>
 						</div>
 					</div>

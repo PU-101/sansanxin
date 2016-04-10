@@ -6,11 +6,7 @@ from . import url_manger
 
 
 HEADERS = {
-	# 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-	# 'Accept-Encoding': 'gzip, deflate, sdch',
-	# 'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.6',
-	# 'Cache-Control': 'max-age=0',
-	# 'Connection': 'keep-alive',
+	'Referer': 'http://www.mafengwo.cn/',
 	'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36',
 }
 

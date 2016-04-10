@@ -1,5 +1,6 @@
-import re, base64
-
+import re
+import base64
+from datetime import datetime
 from django.core.files.base import ContentFile
 from django import forms
 from django.contrib.auth import authenticate, login, logout, get_user
@@ -38,9 +39,37 @@ def myPaginatior(obj_list, per_page=10, current_page_num=1):
 @login_required
 def index(request):
     u_login = get_user(request)
-    return redirect('{}/'.format(u_login.username))
+
+    visits = request.session.get('visits')
+    reset_last_visit_time = False
+    
+    if not visits:
+        visits = 1
+
+    last_visit = request.session.get('last_visit')
+    if last_visit:
+        last_visit_time = datetime.strptime(last_visit[:-7], "%Y-%m-%d %H:%M:%S")
+        delta_days = (datetime.now() - last_visit_time).days
+        if delta_days == 1:
+            visits += 1
+            reset_last_visit_time = True
+        if delta_days > 1:
+            visits = 1
+            reset_last_visit_time = True
+
+    else:
+        reset_last_visit_time = True
+
+    if reset_last_visit_time:
+        request.session['last_visit'] = str(datetime.now())
+        request.session['visits'] = visits
+        u_login.userprofile.visits = visits
+        u_login.userprofile.save()
+
+    return redirect('/{}/'.format(u_login.username))
 
 
+@login_required
 def homepage(request, user_name=None, current_page_num=1):
     """
     Homepage
@@ -61,6 +90,7 @@ def homepage(request, user_name=None, current_page_num=1):
     all_posts = Post.my_post_manager.get_posts(user_of_this_page, user_followers).select_related('user__userprofile')
     
     context_dict['all_posts'] = myPaginatior(all_posts, 5, current_page_num)
+    context_dict['posts_num'] = len(all_posts)
 
     if u_login.is_authenticated:
         context_dict['all_my_likes'] = [like.to.id for like in Like.objects.filter(by=u_login).select_related('to')]
@@ -68,8 +98,13 @@ def homepage(request, user_name=None, current_page_num=1):
     return render(request, 'index/homepage.html', context_dict)
 
 
+
+@login_required
 def query_cat(request, user_name=None):
     context_dict = {}
+
+    u_login = get_user(request)
+    context_dict['u_login'] = u_login
     user_of_this_page = get_object_or_404(User, username=user_name)
     context_dict['user_of_this_page'] = user_of_this_page
 
@@ -87,6 +122,7 @@ def query_cat(request, user_name=None):
         return render(request, 'information_list/query_cat.html', context_dict)
 
 
+@login_required
 def get_comments(request):
     context_dict = {}
     if request.method == 'GET':
@@ -99,6 +135,7 @@ def get_comments(request):
         return render(request, 'index/center/comments.html', context_dict)
 
 
+@login_required
 def post_comment(request):
     if request.method == 'POST':
         commented_by = get_user(request)
@@ -121,6 +158,7 @@ def post_comment(request):
             return redirect('/')
 
 
+@login_required
 def delete_comment(request):
     comments_num = 0
     if request.method == 'GET':
@@ -137,6 +175,7 @@ def delete_comment(request):
         return HttpResponse(comments_num)
 
 
+@login_required
 def post_postitem(request):
     if request.method == 'POST':
         post_form = PostForm(request.POST, request.FILES)
@@ -151,6 +190,7 @@ def post_postitem(request):
         return redirect('/')
 
 
+@login_required
 def like_post(request):
     likes_num = 0
     if request.method == 'GET':
@@ -170,26 +210,25 @@ def like_post(request):
         return HttpResponse(likes_num)
 
 
+@login_required
 def follow_sb(request):
-    # resp = '关注'
-    # print('-------------------')
+    resp = '关注'
 
-    # if request.methos == 'GET':
-    #     user1_id = request.GET['user1_id']
-    #     user2_id = request.GET['user2_id']
+    if request.method == 'GET':
+        user1_id = request.GET['user1_id']
+        user2_id = request.GET['user2_id']
 
-    #     if user1_id and user2_id:
-    #         user1 = get_object_or_None(User, id=user1_id)
-    #         user2 = get_object_or_None(User, id=user2_id)
+        if user1_id and user2_id:
+            user1 = get_object_or_None(User, id=user1_id)
+            user2 = get_object_or_None(User, id=user2_id)
 
-    #         if user1 and user2:
-    #             obj, created = Follow.objects.get_or_create(user1=user1, user2=user2)
-    #             if not created:
-    #                 obj.delate()
-    #             else:
-    #                 resp = '已关注'
-    #     return HttpResponse(resp)
-    return redirect('/')
+            if user1 and user2:
+                obj, created = Follow.objects.get_or_create(user1=user1, user2=user2)
+                if not created:
+                    obj.delete()
+                else:
+                    resp = '已关注'
+        return HttpResponse(resp)
 
 
 @login_required
@@ -211,6 +250,7 @@ def my_page(request, user_name=None):
     return render(request, 'people/people.html', context_dict)
 
 
+@login_required
 def set_portrait(request):
     u_login = get_user(request)
     if request.method == 'POST':

@@ -1,4 +1,4 @@
-import os
+import os, random
 
 
 def user_directory_path(instance, filename):
@@ -9,7 +9,8 @@ def user_directory_path(instance, filename):
 
 
 def default_portrait(gender):
-	"""
-	static/
-	"""
-	return os.path.join('images', 'default_portrait', '{0}.jpg'.format(gender))
+    """
+    static/
+    """
+    index = random.randint(1, 5)
+    return os.path.join('images', 'default_portrait', gender, '{0}.jpg'.format(index))

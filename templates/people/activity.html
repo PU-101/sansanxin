@@ -7,7 +7,7 @@
                 {% if activity.post %}
                     
                     <span>发表了博文</span>
-                    <div>{{ activity.post.title }}</div>
+                    <div class="activity-content">{{ activity.post.title }}</div>
                     <span>{{ activity.created_at }}</span>
                     
                 {% endif %}
@@ -16,7 +16,7 @@
                 {% if activity.like %}
 
                     <span>赞了该条博文</span>
-                    <div>{{ activity.like.to.title }}</div>
+                    <div class="activity-content">{{ activity.like.to.title }}</div>
                     <span>{{ activity.created_at }}</span>
 
                 {% endif %}
@@ -25,7 +25,7 @@
                 {% if activity.comment %}
 
                     <span>评论了该博文</span>
-                    <div>{{ activity.comment.to.title }}</div>
+                    <div class="activity-content">{{ activity.comment.to.title }}</div>
                     <span>{{ activity.created_at }}</span>
 
                 {% endif %}

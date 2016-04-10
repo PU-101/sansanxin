@@ -17,7 +17,8 @@
      </div>
      {% include 'index/left/portrait.html' %}
      <div class="card-content">
-      <a class="username">{{ user_prof.user.username }}</a>
+      <a class="username" href="{% url 'my_page' user_prof.user.username %}">{{ user_prof.user.username }}</a>
+      <span class="grey-text">连续登录{{ user_prof.visits }}天</span>
       <div class="signature mdl-color-text--grey-700">{{ user_prof.signature }}</div>
      </div>
      <div class="card-extra_content">

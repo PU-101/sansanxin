@@ -14,7 +14,8 @@
 		{% for item in cals %}
 		 <div class="col s12">
 		   <div class="right-card card z-depth-1">
-		     <div class="card-image z-depth-1">
+		   	<span class="ding badge">顶{{ item.ding_num }}</span>
+		     <div class="card-image z-depth-1 ">
 		     	<a href="{{ item.url }}" target="_blank">
 		       		<img src="{{ item.img_src }}" width='100%' alt="">
 		       	</a>

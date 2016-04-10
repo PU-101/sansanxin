@@ -5,9 +5,13 @@
         {% endif %}><i class="mdi-navigation-chevron-left"></i></a></li>
 
   {% for p_num in all_posts.page_range %}
-    <li class="{% if p_num == all_posts.number %}active{% else %}waves-effect{% endif %}">
-      <a href="{% url 'pagination_page' user_of_this_page.username p_num %}">{{ p_num }}</a>
-    </li>
+    {% if all_posts %}
+      <li class="{% if p_num == all_posts.number %}active{% else %}waves-effect{% endif %}">
+        <a href="{% url 'pagination_page' user_of_this_page.username p_num %}">{{ p_num }}</a>
+      </li>
+    {% else %}
+      <span class="grey-text">什么都没有</span>
+    {% endif %}
   {% endfor %}
   
   <li class="{% if all_posts.has_next %}waves-effect{% else %}disabled{% endif %}">

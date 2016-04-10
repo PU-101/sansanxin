@@ -21,6 +21,7 @@ class UserProfile(models.Model):
 	updated_at = models.DateTimeField(auto_now=True, auto_now_add=False)
 	created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
 
+	visits = models.PositiveIntegerField(default=1)
 	posts_num = models.PositiveIntegerField(default=0)
 	follows_num = models.PositiveIntegerField(default=0)
 	followers_num = models.PositiveIntegerField(default=0)
