@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-10 12:55+0800\n"
+"POT-Creation-Date: 2016-04-10 17:14+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,10 +19,6 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: sansanxin/settings.py:144
-msgid "English"
-msgstr ""
-
-#: sansanxin/settings.py:145
 msgid "中文简体"
 msgstr ""
 
@@ -35,15 +31,15 @@ msgid "Log out"
 msgstr "注销"
 
 #: templates/navbar.html:23 templates/navbar.html.py:33
-#: templates/registration/login.html:5 templates/registration/login.html:15
-#: templates/registration/login.html:24 templates/registration/logout.html:18
+#: templates/registration/login.html:5 templates/registration/login.html:29
+#: templates/registration/login.html:38 templates/registration/logout.html:18
 msgid "Log in"
 msgstr "登录"
 
 #: templates/navbar.html:24 templates/navbar.html.py:34
-#: templates/registration/login.html:27
-#: templates/registration/registration_form.html:16
-#: templates/registration/registration_form.html:28
+#: templates/registration/login.html:41
+#: templates/registration/registration_form.html:31
+#: templates/registration/registration_form.html:43
 msgid "Register"
 msgstr "注册"
 
@@ -149,15 +145,15 @@ msgstr ""
 msgid "Account activation on"
 msgstr ""
 
-#: templates/registration/login.html:26
+#: templates/registration/login.html:40
 msgid "Forgot your password?"
 msgstr "忘记密码？"
 
-#: templates/registration/login.html:26
+#: templates/registration/login.html:40
 msgid "Reset it"
 msgstr "重置"
 
-#: templates/registration/login.html:27
+#: templates/registration/login.html:41
 msgid "Not a member?"
 msgstr "非网站用户？"
 
@@ -178,7 +174,7 @@ msgid "Password successfully changed!"
 msgstr "密码已修改成功"
 
 #: templates/registration/password_change_form.html:5
-#: templates/registration/password_change_form.html:12
+#: templates/registration/password_change_form.html:15
 msgid "Change password"
 msgstr "修改密码"
 
@@ -199,11 +195,11 @@ msgstr "你即将<a href=\"%(login_url)s\">登录</a>"
 msgid "Confirm password reset"
 msgstr "确认密码重置"
 
-#: templates/registration/password_reset_confirm.html:8
+#: templates/registration/password_reset_confirm.html:12
 msgid "Enter your new password below to reset your password:"
 msgstr "在下方输入你的密码便于重置："
 
-#: templates/registration/password_reset_confirm.html:12
+#: templates/registration/password_reset_confirm.html:16
 msgid "Set password"
 msgstr "设置密码"
 
@@ -264,16 +260,16 @@ msgid "Management"
 msgstr " "
 
 #: templates/registration/password_reset_form.html:4
-#: templates/registration/password_reset_form.html:15
+#: templates/registration/password_reset_form.html:19
 msgid "Reset password"
 msgstr "重置密码"
 
-#: templates/registration/password_reset_form.html:8
+#: templates/registration/password_reset_form.html:11
 msgid ""
 "\n"
-"    Forgot your password? Enter your email in the form below and we'll send "
-"you instructions for creating a new one.\n"
-"    "
+"            Forgot your password? Enter your email in the form below and "
+"we'll send you instructions for creating a new one.\n"
+"            "
 msgstr ""
 "\n"
 "    忘记密码? 在下方表单中输入你的邮箱地址，我们会发送邮件来创建新的密码。\n"
