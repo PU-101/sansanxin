@@ -16,6 +16,15 @@
     * 爬取更多网站的内容，增加“感兴趣的话题”
     * 配置gevent
 
+
+***
+##网站截图
+![主页](https://raw.githubusercontent.com/PU-101/pics/master/%E6%93%B7%E5%8F%96.PNG)
+![我的主页](https://raw.githubusercontent.com/PU-101/pics/master/my_page.PNG)
+![好友](https://raw.githubusercontent.com/PU-101/pics/master/follows.PNG)
+![博文](https://raw.githubusercontent.com/PU-101/pics/master/posts.PNG)
+
+
 ***
 ## 项目介绍
 
