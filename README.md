@@ -16,9 +16,9 @@
     * 爬取更多网站的内容，增加“感兴趣的话题”
     * 配置gevent
 
+***
 ## 项目介绍
 
-***
 
 > 后段采用Django，前端采用Materialize；
 功能主要分为两部分：blog和spider；
@@ -29,7 +29,7 @@ spider为定向爬取指定网站指定内容的爬虫（目前为[蚂蜂窝](ht
 ### 相关笔记
 
 #### Model
-***
+
 ##### 模型框图：
 ![Model](https://raw.githubusercontent.com/PU-101/pics/master/sansanxin-model-2.png)
 > 注：空箭头：1、黑圆点：多
@@ -49,11 +49,11 @@ spider为定向爬取指定网站指定内容的爬虫（目前为[蚂蜂窝](ht
 
 
 #### Registration
-***
+
 用户登录注册等功能使用的是Django-Registartion-redux
 
 #### 爬虫
-***
+
 ##### 爬虫架构框图：
 ![架构框图](https://raw.githubusercontent.com/PU-101/pics/master/%E7%88%AC%E8%99%AB.png)
 
@@ -64,11 +64,14 @@ spider为定向爬取指定网站指定内容的爬虫（目前为[蚂蜂窝](ht
 
 爬虫的解析采用的是lxml库
 
-#### 异步任务
 ***
+
+#### 异步任务
 > 通过celery+redis的配置构建异步任务框架。
 
 目前异步任务的功能用于实现定时启动爬虫，更新数据。后续可能会添加消息推送功能
+
+***
 
 #### 国际化
 目前部分页面（登录、注册）保留了原英文内容，并做了相应的翻译，具体在settings和locale中修改
