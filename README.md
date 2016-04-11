@@ -11,11 +11,16 @@
     * 2、抓取代理，添加代理池，来源[peuland](https://proxy.peuland.com/proxy/search_proxy.php)
     * 3、集成错误信息收集页面
 * 功能添加：
+    * “相互关注”提示
+    * 点赞用户列举
     * 添加活动发布及团队集结功能
     * 添加消息推送功能，暂定使用现有的celery＋Redis
     * 爬取更多网站的内容，增加“感兴趣的话题”
     * 配置gevent
 
+***
+## 网站目前可实现的基本功能
+基本的新鲜事发布，用户点赞和评论，用户之间建立好友关系
 
 ***
 ##网站截图
@@ -40,7 +45,7 @@ spider为定向爬取指定网站指定内容的爬虫（目前为[蚂蜂窝](ht
 #### Model
 
 ##### 模型框图：
-![Model](https://raw.githubusercontent.com/PU-101/pics/master/sansanxin-model-2.png)
+![Model](https://raw.githubusercontent.com/PU-101/pics/master/sansanxin-model.png)
 > 注：空箭头：1、黑圆点：多
 
 关系结构由单独的Like、Comment和Follow表来存储，保持User、UserProfile和Post表的纯净。并且所有的多对多关系均通过多对一来表示，构造表的时候也较为方便。
@@ -80,7 +85,9 @@ spider为定向爬取指定网站指定内容的爬虫（目前为[蚂蜂窝](ht
 
 目前异步任务的功能用于实现定时启动爬虫，更新数据。后续可能会添加消息推送功能
 
+
 ***
 
 #### 国际化
 目前部分页面（登录、注册）保留了原英文内容，并做了相应的翻译，具体在settings和locale中修改
+
