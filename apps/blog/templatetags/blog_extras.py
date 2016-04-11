@@ -59,5 +59,6 @@ def get_activities_list(user_login):
 def get_interested_people(u_login):
     follows_list = Follow.my_post_manager.get_follows(u_login)
     follows_name = (follow.username for follow in follows_list)
-    interested_people = User.objects.exclude(Q(username=u_login.username) | Q(username__in=follows_name)).select_related('userprofile')
+    all_interested_people = User.objects.exclude(Q(username=u_login.username) | Q(username__in=follows_name)).select_related('userprofile')
+    interested_people = all_interested_people.order_by('?')[:5]
     return {'u_login': u_login, 'interested_people': interested_people}

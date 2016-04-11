@@ -40,8 +40,8 @@ class UserForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
 	layout = Layout(
 				Row('gender', 'birthday'),
-				'signature', 'portrait')
+				'signature')
 
 	class Meta():
 		model = UserProfile
-		fields = ('gender', 'birthday', 'signature', 'portrait')
+		fields = ('gender', 'birthday', 'signature')

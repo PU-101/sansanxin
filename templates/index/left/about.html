@@ -5,6 +5,7 @@
        <div class="card-content">
           <h6 class="white-text">可能感兴趣的人</h6>
           <ul class="collection">
+
             {% for i_p in interested_people %}
               <li class="collection-item avatar">
                  <img src="{{ i_p.userprofile.portrait.url }}" alt="" class="circle">
@@ -14,6 +15,7 @@
                  </div>
               </li>
             {% endfor %}
+            
           </ul>
        </div>
      </div>

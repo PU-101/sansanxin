@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load blog_extras %}
 
-{% block title %}个人主页{% endblock %}
+{% block title %}{{ block.super }}-{{ mdd }}{% endblock %}
 
 {% block content %}
 

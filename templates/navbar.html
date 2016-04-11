@@ -13,6 +13,7 @@
     <a href="{% url 'index' %}" class="brand-logo">起个什么名字好呢</a>
     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
     <ul class="right hide-on-med-and-down">
+
       {% if user.is_authenticated %}
         <li>
           <a class="dropdown-button" href="#!" data-activates="user_dropdown">{{ user.username }}
@@ -23,7 +24,10 @@
         <li><a href="{% url 'auth_login' %}">{% trans 'Log in' %}</a></li>
         <li><a href="{% url 'registration_register' %}">{% trans 'Register' %}</a></li>
       {% endif %}
-      <li><a href="footer">{% trans 'About' %}</a></li>
+      
+      {% if not '/about_me/' in request.get_full_path %}
+        <li><a href="{% url 'about_me' %}">{% trans 'About' %}</a></li>
+      {% endif %}
     </ul>
     <ul class="side-nav" id="mobile-demo">
       {% if user.is_authenticated %}
@@ -33,7 +37,7 @@
         <li><a href="{% url 'auth_login' %}">{% trans 'Log in' %}</a></li>
         <li><a href="{% url 'registration_register' %}">{% trans 'Register' %}</a></li>
       {% endif %}
-      <li><a href="footer">{% trans 'About' %}</a></li>
+      <li><a href="{% url 'about_me' %}">{% trans 'About' %}</a></li>
     </ul>
     </div>
   </nav>

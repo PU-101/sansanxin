@@ -1,6 +1,7 @@
 import re
 import base64
-from datetime import datetime
+import datetime
+from django.views.generic.base import TemplateView
 from django.core.files.base import ContentFile
 from django import forms
 from django.contrib.auth import authenticate, login, logout, get_user
@@ -41,27 +42,28 @@ def index(request):
     u_login = get_user(request)
 
     visits = request.session.get('visits')
+    last_visit_at = request.session.get('last_visit_at')
     reset_last_visit_time = False
+
+    today = datetime.date.today()
     
-    if not visits:
+    if not visits or not last_visit_at:
+        visits = u_login.userprofile.visits
+        last_visit_at = str(today)
+        reset_last_visit_time = True
+
+    last_visit_date = datetime.datetime.strptime(last_visit_at, "%Y-%m-%d").date()
+
+    delta_days = (today - last_visit_date).days
+    if delta_days == 1:
+        visits += 1
+        reset_last_visit_time = True
+    if delta_days > 1:
         visits = 1
-
-    last_visit = request.session.get('last_visit')
-    if last_visit:
-        last_visit_time = datetime.strptime(last_visit[:-7], "%Y-%m-%d %H:%M:%S")
-        delta_days = (datetime.now() - last_visit_time).days
-        if delta_days == 1:
-            visits += 1
-            reset_last_visit_time = True
-        if delta_days > 1:
-            visits = 1
-            reset_last_visit_time = True
-
-    else:
         reset_last_visit_time = True
 
     if reset_last_visit_time:
-        request.session['last_visit'] = str(datetime.now())
+        request.session['last_visit_at'] = str(datetime.date.today())
         request.session['visits'] = visits
         u_login.userprofile.visits = visits
         u_login.userprofile.save()
@@ -259,3 +261,7 @@ def set_portrait(request):
         img = base64.b64decode(raw_img)
         up_obj.portrait.save('user.jpg', ContentFile(img), save=True)
     return HttpResponse(up_obj.portrait.url)
+
+
+class AboutMeView(TemplateView):
+    template_name = 'about_me.html'
