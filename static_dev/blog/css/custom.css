@@ -2,11 +2,15 @@ html {
   /*font-family: Arial, sans-serif;*/
   font-family:'Hiragino Sans GB','Microsoft Yahei',"WenQuanYi Micro Hei",SimSun,Tahoma,Arial,Helvetica,STHeiti;
   font-size: 70%;
-  
+}
+
+body {
   background: -webkit-linear-gradient(top, #f6f7fc 0%, #d5e1e8 40%);
   background: linear-gradient(to bottom, #f6f7fc 0%, #d5e1e8 40%);
 
+  background-repeat: no-repeat;
 }
+
 
 form {
   background-color: white;
@@ -15,7 +19,7 @@ form {
 
 .body-container {
 	padding-top: 1em;
-  max-width: 1024px;
+  max-width: 1200px;
   min-width: 512px;
   margin: auto;
 }
@@ -384,6 +388,8 @@ figure.effect-roxy p {
     border-radius: 10px;
     padding: 2em;
     margin-top: 4em;
+
+    min-width: 350px;
 }
 
 .about-me p {

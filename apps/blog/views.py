@@ -215,13 +215,13 @@ def like_post(request):
 @login_required
 def follow_sb(request):
     resp = '关注'
-
+    
     if request.method == 'GET':
-        user1_id = request.GET['user1_id']
+
         user2_id = request.GET['user2_id']
 
-        if user1_id and user2_id:
-            user1 = get_object_or_None(User, id=user1_id)
+        if user2_id:
+            user1 = get_user(request)
             user2 = get_object_or_None(User, id=user2_id)
 
             if user1 and user2:
@@ -231,6 +231,8 @@ def follow_sb(request):
                 else:
                     resp = '已关注'
         return HttpResponse(resp)
+
+
 
 
 @login_required

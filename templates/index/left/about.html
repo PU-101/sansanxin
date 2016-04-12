@@ -11,7 +11,7 @@
                  <img src="{{ i_p.userprofile.portrait.url }}" alt="" class="circle">
                  <div class="user-follow">
                    <a href="{% url 'homepage' i_p.username %}"><span class="title">{{ i_p.username}}</span></a>
-                    <a class="waves-effect waves-light btn grey" data-ip-id='{{ i_p.id }}' data-user-id='{{ u_login.id }}'>关注</a>
+                    <a class="follow-btn waves-effect waves-light btn grey" data-ip-id='{{ i_p.id }}'>关注</a>
                  </div>
               </li>
             {% endfor %}

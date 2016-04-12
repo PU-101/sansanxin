@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-  $(".body-container").height($(window).height());
+  // $(".body-container").height($(window).height());
 
 
   /**
@@ -124,17 +124,15 @@ $(document).ready(function(){
 
 
    /**
-   *关注按钮
+   *关注按钮/取消关注按钮
    */
-   $('.about-card .card-content .collection-item .btn').click(function(){
+   $('.follow-btn').click(function(){
     var follow_button = $(this)
-    var user1_id = $(this).attr('data-user-id');
     var user2_id = $(this).attr('data-ip-id');
 
       $.get('/follow/',
 
-        {user1_id: user1_id,
-          user2_id: user2_id},
+        {user2_id: user2_id},
 
         function(data){
           $(follow_button).text(data)
