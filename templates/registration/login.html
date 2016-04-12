@@ -4,7 +4,7 @@
 
 {% block title %}{% trans "Log in" %}{% endblock %}
 
-{% block login-register-page %}
+{% block style-content %}
 <style>
     html {
         height: 100%;
@@ -44,7 +44,7 @@
 {% block content %}
 
 <div class="row">
-    <div class="col s12 m6 offset-m3 l6 offset-l3">
+    <div class="col s12 m6 offset-m3 l4 offset-l4">
         <div class="card z-depth-4">
             <form method="POST">
             {% csrf_token %}

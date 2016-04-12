@@ -4,7 +4,7 @@
   <div class="comment" >
     <div class="comment__header">
       <div class="comment__author valign-wrapper">
-        <img class="comment__avatar" src="{% static "blog/images/veronika.jpg" %}">
+        <img class="comment__avatar" src="{{ comment.by.userprofile.portrait.url }}">
         <strong class="valign">{{ comment.by.username }}</strong>
         {% if comment.reply_to %}
           <small>&nbsp;&nbsp;回复：{{ comment.reply_to.username }}</small>
