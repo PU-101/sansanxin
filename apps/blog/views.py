@@ -3,13 +3,11 @@ import base64
 import datetime
 from django.views.generic.base import TemplateView
 from django.core.files.base import ContentFile
-from django import forms
-from django.contrib.auth import authenticate, login, logout, get_user
+from django.contrib.auth import get_user
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import UserProfile, Post, Follow, Comment, Like
@@ -97,8 +95,8 @@ def homepage(request, user_name=None, current_page_num=1):
     if u_login.is_authenticated:
         context_dict['all_my_likes'] = [like.to.id for like in Like.objects.filter(by=u_login).select_related('to')]
         context_dict['all_my_comments'] = [comment.to.id for comment in Comment.objects.filter(by=u_login).select_related('to')]
+    
     return render(request, 'index/homepage.html', context_dict)
-
 
 
 @login_required
@@ -214,7 +212,7 @@ def like_post(request):
 
 @login_required
 def follow_sb(request):
-    resp = '关注'
+    resp = {'text': '关注', 'code': '0'}
     
     if request.method == 'GET':
 
@@ -228,11 +226,15 @@ def follow_sb(request):
                 obj, created = Follow.objects.get_or_create(user1=user1, user2=user2)
                 if not created:
                     obj.delete()
+                    resp['code'] = '0'
                 else:
-                    resp = '已关注'
-        return HttpResponse(resp)
+                    if obj.situation == '1':
+                        resp['text'] = '相互关注'
+                    else:
+                        resp['text'] = '已关注'
+                    resp['code'] = obj.situation
 
-
+        return JsonResponse(resp)
 
 
 @login_required

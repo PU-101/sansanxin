@@ -1,34 +1,38 @@
 {% extends "base.html" %}
 
-{% block login-register-page %}
-<style>
-    body {
-        background-image: url(https://images.unsplash.com/photo-1452716726610-30ed68426a6b?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=eb13d4961a078aca65cfa493a8026519);
-        background-repeat: no-repeat;
-        background-position: center center;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-
-        min-height:100%;
-        height:100%;
-    }
-
-    nav {
-        color: transparent;
-        background-color: transparent;
-    }
-
-    .indigo {
-            background-color: transparent !important;
+{% block style-content %}
+    <style>
+        html {
+            height: 100%;
         }
 
-    .z-depth-1, nav, .dropdown-content, .collapsible, .side-nav {
-        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.16), 0 0 0 0 rgba(0, 0, 0, 0.12);
-    }
+        body {
+            background-image: url(https://images.unsplash.com/photo-1452716726610-30ed68426a6b?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=eb13d4961a078aca65cfa493a8026519);
+            background-repeat: no-repeat;
+            background-position: center center;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
 
-</style>
+            min-height:100%;
+            height:100%;
+        }
+
+        nav {
+            color: transparent;
+            background-color: transparent;
+        }
+
+        .indigo {
+                background-color: transparent !important;
+            }
+
+        .z-depth-1, nav, .dropdown-content, .collapsible, .side-nav {
+            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.16), 0 0 0 0 rgba(0, 0, 0, 0.12);
+        }
+
+    </style>
 {% endblock %}
 
 
@@ -40,7 +44,7 @@
             <p><i class="mdi-action-perm-identity"></i>&nbsp;&nbsp;&nbsp;&nbsp;liukailin</p>
             <p>QQ</i>&nbsp;&nbsp;&nbsp;&nbsp;975373930</p>
             <p><i class="mdi-communication-email"></i>&nbsp;&nbsp;&nbsp;&nbsp;975373930@qq.com</p>
-            <p>Github&nbsp;&nbsp;<i class="mdi-content-link"></i>&nbsp;<a href="https://github.com/PU-101/sansanxin">https://github.com/PU-101/sansanxin</a>   
+            <p>Github&nbsp;&nbsp;<i class="mdi-content-link"></i>&nbsp;<a href="https://github.com/PU-101/sansanxin" target="_blank">https://github.com/PU-101/sansanxin</a>   
             </p>
         </div>
     </div>

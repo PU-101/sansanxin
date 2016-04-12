@@ -13,7 +13,7 @@ class LikeAndStar(models.Model):
 	created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
 
 	class Meta():
-		ordering = ['by']
+		ordering = ['-created_at']
 		abstract = True
 
 
@@ -38,8 +38,24 @@ class Follow(models.Model):
 	objects = models.Manager()
 	my_post_manager = MyPostManager()
 
+	class Meta():
+		ordering = ['-created_at']
+
 	def __str__(self):
 		return '{0}--FOLLOW--{1}'.format(self.user1.username, self.user2.username)
+
+	def save(self, *args, **kwargs):
+		obj = Follow.objects.filter(user1=self.user2, user2=self.user1)
+		if obj:
+			obj.update(situation='1')
+			self.situation = '1'
+		super(Follow, self).save(*args, **kwargs)
+
+	def delete(self, *args, **kwargs):
+		super(Follow, self).delete(*args, **kwargs)
+		obj = Follow.objects.filter(user1=self.user2, user2=self.user1)
+		if obj:
+			obj.update(situation='0')
 
 
 """

@@ -16,9 +16,13 @@ class MyPostManager(models.Manager):
 
     def get_followers(self, user):
         raw_follow_list = self.get_raw_followers(user)
-        map(lambda single: setattr(single.user1, 'situation', single.situation), raw_follow_list)
+        # map(lambda single: setattr(single.user1, 'situation', single.situation), raw_follow_list)
+
+        for single in raw_follow_list:
+            setattr(single.user1, 'situation', single.situation)
+
         return (single.user1 for single in raw_follow_list)
-         
+
     def get_raw_follows(self, user):
         """
         参照上
@@ -27,7 +31,10 @@ class MyPostManager(models.Manager):
 
     def get_follows(self, user):
         raw_follow_list = self.get_raw_follows(user)
-        map(lambda single: setattr(single.user2, 'situation', single.situation), raw_follow_list)
+        
+        for single in raw_follow_list:
+            setattr(single.user2, 'situation', single.situation)
+
         return (single.user2 for single in raw_follow_list)
 
     # 操作对象为Post表

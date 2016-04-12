@@ -12,19 +12,30 @@ register = template.Library()
 
 @register.inclusion_tag('index/left/profile.html')
 def get_userprofile_info(u_login, user_of_this_page):
-	user_prof = get_object_or_None(UserProfile, user=user_of_this_page)
-	return {'user': u_login, 'user_of_this_page': user_of_this_page, 'user_prof': user_prof}
+    user_prof = get_object_or_None(UserProfile, user=user_of_this_page)
+    context_dict = {'user': u_login, 'user_of_this_page': user_of_this_page, 'user_prof': user_prof}
+
+    if u_login == user_of_this_page:
+        context_dict['situation'] = 'hidden'
+    else:
+        obj = Follow.objects.filter(user1=u_login, user2=user_of_this_page)
+        if obj:
+            context_dict['situation'] = obj[0].situation
+        else:
+            context_dict['situation'] = 'new'
+
+    return context_dict
 
 
 @register.inclusion_tag('index/right/calendars.html')
 def get_mafengwo_list():
-	return {'cals': Calendar.objects.all()[:10]}
+    return {'cals': Calendar.objects.all()[:10]}
 
 
 @register.inclusion_tag('index/center/post_form.html')
 def create_post_form():
-	form = PostForm()
-	return {'post_form': form}
+    form = PostForm()
+    return {'post_form': form}
 
 
 @register.inclusion_tag('people/activity.html')

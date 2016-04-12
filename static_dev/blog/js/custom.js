@@ -130,13 +130,19 @@ $(document).ready(function(){
     var follow_button = $(this)
     var user2_id = $(this).attr('data-ip-id');
 
-      $.get('/follow/',
+      $.getJSON('/follow/',
 
         {user2_id: user2_id},
 
         function(data){
-          $(follow_button).text(data)
-          $(follow_button).toggleClass("grey");
+          if(data.code=='0') {
+            $(follow_button).toggleClass("grey");
+          }
+          else {
+            $(follow_button).removeClass("grey");
+            $(follow_button).addClass("pink");
+          } 
+          $(follow_button).text(data.text);
         });
    });
 

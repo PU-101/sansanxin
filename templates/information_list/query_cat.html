@@ -57,22 +57,21 @@
 				         <div class="card-content">
 				           <a href="{% url 'homepage' item.username %}">{{ item.username }}</a>
 				           {% if cat == 'follows' %}
-						        <a class="follow-btn right waves-effect waves-light btn" data-ip-id='{{ item.id }}'>
+						        
 						        	{% if item.situation == '0' %}
-										已关注
+										<a class="follow-btn right waves-effect waves-light btn" data-ip-id='{{ item.id }}'>已关注</a>
 							        {% elif item.situation == '1' %}
-							        	相互关注
+							        	<a class="follow-btn right waves-effect waves-light btn pink" data-ip-id='{{ item.id }}'>相互关注</a>
 							        {% endif %}
-						        </a>
 						        
 				           	{% elif cat == 'followers' %}
-				           		<a class="follow-btn right waves-effect waves-light btn grey" data-ip-id='{{ item.id }}'>	
+				           			
 				           			{% if item.situation == '0' %}
-				           				关注
+				           				<a class="follow-btn right waves-effect waves-light btn grey" data-ip-id='{{ item.id }}'>关注</a>
 					           		{% elif item.situation == '1' %}
-					           			相互关注
+					           			<a class="follow-btn right waves-effect waves-light btn pink" data-ip-id='{{ item.id }}'>相互关注</a>
 					           		{% endif %}
-				           		</a>
+
 				           {% endif %}
 				           
 				         </div>

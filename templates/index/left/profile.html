@@ -19,8 +19,22 @@
      <div class="card-content">
       <a class="username" href="{% url 'my_page' user_prof.user.username %}">{{ user_prof.user.username }}</a>
       <span class="grey-text">连续登录{{ user_prof.visits }}天</span>
+      
+      <div>
+        {% if situation != 'hidden' %}
+          {% if situation == '0' %}
+            <a class="follow-btn waves-effect waves-light btn" data-ip-id='{{ user_prof.user.id }}'>已关注</a>
+          {% elif situation == '1' %}
+            <a class="follow-btn waves-effect waves-light btn pink" data-ip-id='{{ user_prof.user.id }}'>相互关注</a>
+          {% elif situation == 'new' %}
+            <a class="follow-btn waves-effect waves-light btn grey" data-ip-id='{{ user_prof.user.id }}'>关注</a>
+          {% endif %}
+        {% endif %}
+      </div>
+
       <div class="signature mdl-color-text--grey-700">{{ user_prof.signature }}</div>
      </div>
+     
      <div class="card-extra_content">
         <div class="posts">
           <small><a class="num" href="{% url 'query_cat' user_prof.user.username %}?cat=posts">{{ user_prof.posts_num }} 博文</a></small>
