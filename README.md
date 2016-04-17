@@ -11,7 +11,7 @@
     * 2、抓取代理，添加代理池，来源[peuland](https://proxy.peuland.com/proxy/search_proxy.php)
     * 3、集成错误信息收集页面
 * 功能添加：
-    * “相互关注”提示
+    * ~~“相互关注”提示~~
     * 点赞用户列举
     * 添加活动发布及团队集结功能
     * 添加消息推送功能，暂定使用现有的celery＋Redis
@@ -72,7 +72,7 @@ spider为定向爬取指定网站指定内容的爬虫（目前为[蚂蜂窝](ht
 ![架构框图](https://raw.githubusercontent.com/PU-101/pics/master/%E7%88%AC%E8%99%AB.png)
 
 ##### URL管理器：
-![URL管理器](https://raw.githubusercontent.com/PU-101/pics/master/URL%E7%AE%A1%E7%90%86%E5%99%A8.PNG)
+![URL管理器](https://raw.githubusercontent.com/PU-101/pics/master/spider.png)
 
 配置new_urls和old_urls两个set，将爬取的页面中的URL添加到new_urls中，从new_urls中取出URL爬取并解析，并存放到old_urls集中去；
 
