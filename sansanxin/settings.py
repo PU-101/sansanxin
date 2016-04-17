@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+from .passwords import EMAIL_PASSWORD
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -122,7 +123,7 @@ EMAIL_USE_SSL = True
 EMAIL_HOST = 'smtp.qq.com'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = '975373930@qq.com'
-EMAIL_HOST_PASSWORD = 'fknjrpjlbgdnbdia'
+EMAIL_HOST_PASSWORD = EMAIL_PASSWORD
 DEFAULT_FROM_EMAIL = 'liukailin <975373930@qq.com>'
 
 # Internationalization
