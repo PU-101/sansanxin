@@ -269,3 +269,6 @@ def set_portrait(request):
 
 class AboutMeView(TemplateView):
     template_name = 'about_me.html'
+
+class CanvasDemoView(TemplateView):
+    template_name = 'canvas.html'

@@ -18,6 +18,8 @@ urlpatterns = [
 
     url(r'^about_me/$', views.AboutMeView.as_view(), name='about_me'),
 
+    url(r'^canvas_demo/', views.CanvasDemoView.as_view(), name='canvas_demo'),
+
     url(r'^(?P<user_name>\w+)/$', views.homepage, name='homepage'),
     url(r'^(?P<user_name>\w+)/(?P<current_page_num>\d+)/$', views.homepage, name='pagination_page'),
     url(r'^(?P<user_name>\w+)/my_page/$', views.my_page, name='my_page'),
