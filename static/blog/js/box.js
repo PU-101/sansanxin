@@ -26,7 +26,6 @@ wallImage.onload = function() {
   wallReady = true;
 };
 wallImage.src = "/static/blog/images/canvas/wall.png";
-alert(wallImage.src)
 
 var destinationReady = false;
 var destinationImage = new Image();
